@@ -1,73 +1,44 @@
 package com.example.SafetyAlerts.modeles;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.FileReader;
+import java.util.List;
 
 public class ObjectFromData {
 
-    public void ObjectsFromData(){
+    private List<Person> persons;
+    private List<Firestation> firestations;
+    private List<MedicalRecord> medicalrecords;
+
+    public List<Person> getPersons() {
+        return persons;
     }
 
-
-    public void ObjectsFromDataPersons() {
-
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader("data.json"));
-
-            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
-            JSONObject jsonObject = (JSONObject) obj;
-
-            // A JSON array. JSONObject supports java.util.List interface.
-            JSONArray personsList = (JSONArray) jsonObject.get("persons");
-
-            System.out.println(personsList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-    public void ObjectsFromDataFirestations(String[] firestations){
-
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader("data.json"));
-
-            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
-            JSONObject jsonObject = (JSONObject) obj;
-
-            // A JSON array. JSONObject supports java.util.List interface.
-            JSONArray companyList = (JSONArray) jsonObject.get("firestations");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
-    public void ObjectsFromDataMedicalrecords(String[] medicalrecords){
-
-        JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader("data.json"));
-
-            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
-            JSONObject jsonObject = (JSONObject) obj;
-
-            // A JSON array. JSONObject supports java.util.List interface.
-            JSONArray companyList = (JSONArray) jsonObject.get("medicalrecords");
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public List<Firestation> getFirestations() {
+        return firestations;
     }
 
+    public void setFirestations(List<Firestation> firestations) {
+        this.firestations = firestations;
+    }
 
+    public List<MedicalRecord> getMedicalrecords() {
+        return medicalrecords;
+    }
 
+    public void setMedicalrecords(List<MedicalRecord> medicalrecords) {
+        this.medicalrecords = medicalrecords;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectFromData{" +
+                "persons=" + persons +
+                ", firestations=" + firestations +
+                ", medicalrecords=" + medicalrecords +
+                '}';
+    }
 }
 
