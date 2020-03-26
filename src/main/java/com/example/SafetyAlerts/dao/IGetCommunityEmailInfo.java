@@ -2,12 +2,13 @@ package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.modeles.Person;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
-public interface IGetPersonInfo {
+public interface IGetCommunityEmailInfo {
 
-    List<Person> getPersonFindByName(String firstname, String lastname);
+    List<String> getEmail(String city);
 
     List<Person> getPersonAll();
+
 }

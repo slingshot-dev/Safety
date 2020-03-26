@@ -4,6 +4,7 @@ import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class SafetyAlertsMapper {
 
             // Convert JSON string from file to Object
             objectFromData = objectMapper.readValue(new File("src/main/resources/data.json"), ObjectFromData.class);
-            System.out.println(objectFromData);
+            //System.out.println(objectFromData);
 
         } catch (IOException e) {
             e.printStackTrace();

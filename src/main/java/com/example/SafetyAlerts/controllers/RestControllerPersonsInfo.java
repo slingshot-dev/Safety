@@ -18,10 +18,10 @@ public class RestControllerPersonsInfo {
     private GetPersonInfo getPersonInfo;
 
     @GetMapping
-    @ResponseBody
-    public List<Person> getPersonInfo() {
+    // @ResponseBody
+    public List<Person> getPersonx(String firstname, String lastname) {
 
-        return getPersonInfo.getPersonInfo();
+        return getPersonInfo.getPersonFindByName(firstname, lastname);
     }
 
 }
