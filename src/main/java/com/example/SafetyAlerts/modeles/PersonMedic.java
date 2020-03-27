@@ -2,20 +2,14 @@ package com.example.SafetyAlerts.modeles;
 
 import java.util.List;
 
-public class MedicalRecord {
-    private String firstName;
+public class PersonMedic {
+
     private String lastName;
-    private String birthdate;
+    private String address;
+    private String age;
+    private String email;
     private List<String> medications;
     private List<String> allergies;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getLastName() {
         return lastName;
@@ -25,12 +19,28 @@ public class MedicalRecord {
         this.lastName = lastName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getBirthdate() {
-        return birthdate;
+        return age;
     }
 
     public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+        this.age = birthdate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<String> getMedications() {

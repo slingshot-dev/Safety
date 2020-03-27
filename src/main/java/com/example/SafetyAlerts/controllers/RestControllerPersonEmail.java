@@ -18,7 +18,6 @@ public class RestControllerPersonEmail {
     private GetCommunityEmailInfo getCommunityEmailInfo;
 
     @GetMapping
-    // @ResponseBody
     public List<String> getEmail(String city) {
 
         return getCommunityEmailInfo.getEmail(city);

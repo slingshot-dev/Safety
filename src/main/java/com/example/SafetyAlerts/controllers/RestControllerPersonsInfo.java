@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public class RestControllerPersonsInfo {
 
     @GetMapping
     // @ResponseBody
-    public List<Person> getPersonx(String firstname, String lastname) {
+    public ArrayList<String> getPersonx(String firstname, String lastname) {
 
         return getPersonInfo.getPersonFindByName(firstname, lastname);
     }

@@ -1,16 +1,17 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.xpath.internal.objects.XNull;
+import com.example.SafetyAlerts.modeles.PersonMedic;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,11 +19,36 @@ public class GetPersonInfo implements IGetPersonInfo {
 
 
     @Override
-    public List<Person> getPersonFindByName(String firstname, String lastname) {
+    public ArrayList<String> getPersonFindByName(String firstname, String lastname) {
+
     List<Person> result = getPersonAll();
-    return result.stream()
-                .filter(person -> person.getFirstName().contentEquals(firstname)).collect(Collectors.toList()); // Liste passer en flux puis person en argument (firstnmae/lastname envoyé dans la Lambda
-/*                .forEach(System.out::println);*/
+        ArrayList<String> result2 = new ArrayList<>();
+
+        result.forEach(person3 -> {
+            if (person3.getLastName().contentEquals(lastname)) {
+                String firstname2 = person3.getFirstName();
+                String lastname2 = person3.getLastName();
+
+                result.forEach(person -> {
+                    if (person.getLastName().contentEquals(lastname2) && person.getFirstName().contentEquals(firstname2)) {
+                        result2.add(person.getLastName());
+                        result2.add(person.getAddress());
+                        result2.add(person.getEmail());
+
+                        getMedAll().forEach(person2 -> {
+                            if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
+                                String birthDate = person2.getBirthdate();
+                                String age = getAge(birthDate);
+                                result2.add(age);
+                                result2.add(person2.getMedications().toString());
+                                result2.add(person2.getAllergies().toString());
+                            }
+                        });
+                    }
+                });
+           }
+        });
+    return result2;
     }
 
     @Override
@@ -30,4 +56,21 @@ public class GetPersonInfo implements IGetPersonInfo {
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getPersons();
     }
+    @Override
+    public List<MedicalRecord> getMedAll(){
+        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+        return objectsFromData.getMedicalrecords();
+    }
+
+    public String getAge(String birthDate) {
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                .withLocale(Locale.FRENCH);
+
+        LocalDate date = LocalDate.parse(birthDate, formatter);
+        int calculAge = Period.between(date, localDate).getYears();
+
+        return String.valueOf(calculAge);
+    }
+
 }
