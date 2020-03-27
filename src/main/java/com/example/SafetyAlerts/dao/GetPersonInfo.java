@@ -5,6 +5,7 @@ import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.modeles.PersonMedic;
+import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -38,7 +39,7 @@ public class GetPersonInfo implements IGetPersonInfo {
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
                                 String birthDate = person2.getBirthdate();
-                                String age = getAge(birthDate);
+                                String age = GetAge.getAge(birthDate);
                                 result2.add(age);
                                 result2.add(person2.getMedications().toString());
                                 result2.add(person2.getAllergies().toString());
@@ -61,16 +62,4 @@ public class GetPersonInfo implements IGetPersonInfo {
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getMedicalrecords();
     }
-
-    public String getAge(String birthDate) {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                .withLocale(Locale.FRENCH);
-
-        LocalDate date = LocalDate.parse(birthDate, formatter);
-        int calculAge = Period.between(date, localDate).getYears();
-
-        return String.valueOf(calculAge);
-    }
-
 }
