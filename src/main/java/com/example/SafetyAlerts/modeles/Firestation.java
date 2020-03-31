@@ -3,7 +3,7 @@ package com.example.SafetyAlerts.modeles;
 public class Firestation {
 
     private String address;
-    private Integer station;
+    private String station;
 
     public String getAddress() {
         return address;
@@ -13,11 +13,11 @@ public class Firestation {
         this.address = address;
     }
 
-    public Integer getStation() {
+    public String getStation() {
         return station;
     }
 
-    public void setStation(Integer station) {
+    public void setStation(String station) {
         this.station = station;
     }
 

@@ -1,6 +1,7 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.modeles.Firestation;
 import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
@@ -9,37 +10,38 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class GetPersonInfo implements IGetPersonInfo {
+public class GetFlood implements IGetFlood {
 
 
     /**
-     * This URL return from Firstname and lastname, tyhe folowing informations :
-     * Lastname, adresse, age, Email, Medicals records.
+     * This URL return from FireStation, the folowing informations :
+     * Lastname, phone Number, age, Email, Medicals records.
      *
-     * @param firstname
-     * @param lastname
      * @return
      */
 
     @Override
-    public ArrayList<String> getPersonFindByName(String firstname, String lastname) {
+    public ArrayList<String> getFlood(String station) {
 
-    List<Person> result = getPersonAll();
+        List<Person> result = getPersonAll();
+        List<Firestation> resultFire = getFireAll();
         ArrayList<String> result2 = new ArrayList<>();
 
-        result.forEach(person3 -> {
-            if (person3.getLastName().contentEquals(lastname)) {
-                String firstname2 = person3.getFirstName();
-                String lastname2 = person3.getLastName();
+        resultFire.forEach(firestation -> {
+            if (firestation.getStation().contentEquals(station)) {
+                String adress = firestation.getAddress();
 
                 result.forEach(person -> {
-                    if (person.getLastName().contentEquals(lastname2) && person.getFirstName().contentEquals(firstname2)) {
+                    if (person.getAddress().contentEquals(adress)) {
+                        String firstname = person.getFirstName();
+                        String lastname = person.getLastName();
+                        result2.add(person.getFirstName());
                         result2.add(person.getLastName());
                         result2.add(person.getAddress());
-                        result2.add(person.getEmail());
+                        result2.add(person.getPhone());
 
                         getMedAll().forEach(person2 -> {
-                            if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
+                            if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
                                 result2.add(age);
@@ -49,9 +51,9 @@ public class GetPersonInfo implements IGetPersonInfo {
                         });
                     }
                 });
-           }
+            }
         });
-    return result2;
+        return result2;
     }
 
     @Override
@@ -59,9 +61,18 @@ public class GetPersonInfo implements IGetPersonInfo {
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getPersons();
     }
+
     @Override
     public List<MedicalRecord> getMedAll(){
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getMedicalrecords();
     }
+
+    @Override
+    public List<Firestation> getFireAll(){
+        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+        return objectsFromData.getFirestations();
+   }
+
+
 }
