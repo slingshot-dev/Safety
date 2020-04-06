@@ -1,5 +1,7 @@
 package com.example.SafetyAlerts.modeles;
 
+import org.springframework.stereotype.Component;
+
 public class Email {
 
     private String firstName;

@@ -2,6 +2,7 @@ package com.example.SafetyAlerts.controllers;
 
 
 import com.example.SafetyAlerts.dao.GetCommunityEmailInfo;
+import com.example.SafetyAlerts.modeles.Email;
 import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class RestControllerPersonEmail {
     private GetCommunityEmailInfo getCommunityEmailInfo;
 
     @GetMapping
-    public List<String> getEmail(String city) {
+    public Object getEmail(String city) {
 
         return getCommunityEmailInfo.getEmail(city);
     }
