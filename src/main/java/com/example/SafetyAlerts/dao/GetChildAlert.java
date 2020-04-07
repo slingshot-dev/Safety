@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GetChildAlert implements IGetChildAlert {
+public class GetChildAlert extends GetAll implements IGetChildAlert {
 
     /**
      * This URL return from Address, the folowing informations :
@@ -61,25 +61,6 @@ public class GetChildAlert implements IGetChildAlert {
         childAlertList.setChildAlertUrlArrayList(result3);
         return childAlertList;
     }
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-    @Override
-    public List<MedicalRecord> getMedAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
-
-    @Override
-    public List<Firestation> getFireAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getFirestations();
-    }
-
 
 }
 

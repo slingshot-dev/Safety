@@ -10,9 +10,4 @@ public interface IGetPersonInfo {
 
     PersonList getPersonFindByName(String firstname, String lastname);
 
-    List<Person> getPersonAll();
-
-    List<MedicalRecord> getMedAll();
-
-
 }

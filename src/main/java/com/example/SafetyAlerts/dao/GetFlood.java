@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class GetFlood implements IGetFlood {
+public class GetFlood extends GetAll implements IGetFlood {
 
 
     /**
@@ -44,11 +44,6 @@ public class GetFlood implements IGetFlood {
                         floodUrl.setPhone(person.getPhone());
                         floodUrl.setFirestationNumber(numStation);
 
-/*                        result2.add(person.getFirstName());
-                        result2.add(person.getLastName());
-                        result2.add(person.getAddress());
-                        result2.add(person.getPhone());*/
-
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
@@ -59,9 +54,6 @@ public class GetFlood implements IGetFlood {
                                 floodUrl.setAllergies(person2.getAllergies());
 
                                 result2.add(floodUrl);
-
-/*                                result2.add(person2.getMedications().toString());
-                                result2.add(person2.getAllergies().toString());*/
                             }
                         });
                     }
@@ -71,24 +63,5 @@ public class GetFlood implements IGetFlood {
         floodList.setFloodUrls((result2));
         return floodList;
     }
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-    @Override
-    public List<MedicalRecord> getMedAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
-
-    @Override
-    public List<Firestation> getFireAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getFirestations();
-   }
-
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
-public class GetFirestation implements IGetFirestation {
+public class GetFirestation extends GetAll implements IGetFirestation {
 
     /**
      * This URL return from Station number, the folowing informations :
@@ -74,25 +74,5 @@ public class GetFirestation implements IGetFirestation {
         firestationList.setFirestations(result2);
         return firestationList;
     }
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-    @Override
-    public List<MedicalRecord> getMedAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
-
-    @Override
-    public List<Firestation> getFireAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getFirestations();
-    }
-
-
 
 }

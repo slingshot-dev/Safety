@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class GetPhoneAlert implements IGetPhoneAlert {
+public class GetPhoneAlert extends GetAll implements IGetPhoneAlert {
 
 
     /**
@@ -39,8 +39,6 @@ public class GetPhoneAlert implements IGetPhoneAlert {
                         phoneAlertUrl.setPhone(person.getPhone());
 
                         result2.add(phoneAlertUrl);
-/*                        result2.add(person.getLastName());
-                        result2.add(person.getPhone());*/
                     }
                 });
             }
@@ -49,24 +47,5 @@ public class GetPhoneAlert implements IGetPhoneAlert {
         phoneAlertList.setPhoneAlertUrls(result2);
         return phoneAlertList;
     }
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-    @Override
-    public List<MedicalRecord> getMedAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
-
-    @Override
-    public List<Firestation> getFireAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getFirestations();
-    }
-
 
 }

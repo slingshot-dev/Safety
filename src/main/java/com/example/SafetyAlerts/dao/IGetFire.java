@@ -11,12 +11,4 @@ public interface IGetFire {
 
     FireList getFire(String address);
 
-    List<Person> getPersonAll();
-
-    List<MedicalRecord> getMedAll();
-
-    List<Firestation> getFireAll();
-
-
-
 }

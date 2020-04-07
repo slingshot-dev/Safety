@@ -11,10 +11,10 @@ public interface IGetChildAlert {
 
     ChildAlertList getChildAlert(String address);
 
-    List<Person> getPersonAll();
+/*    List<Person> getPersonAll();
 
     List<MedicalRecord> getMedAll();
 
-    List<Firestation> getFireAll();
+    List<Firestation> getFireAll();*/
 
 }

@@ -13,7 +13,7 @@ import java.util.*;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public class GetCommunityEmailInfo implements IGetCommunityEmailInfo {
+public class GetCommunityEmailInfo extends GetAll implements IGetCommunityEmailInfo {
 
 
     @Override
@@ -35,23 +35,4 @@ public class GetCommunityEmailInfo implements IGetCommunityEmailInfo {
         return emailList;
     }
 
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
 }
-
-/*    @Override
-    public ArrayList<String> getEmail(String city) {
-
-        ArrayList<String> result = new ArrayList<>();
-
-        getPersonAll().forEach(person -> {
-            if (person.getCity().contentEquals(city)) {
-                result.add(person.getEmail());
-            }
-        });
-            return result;
-    }*/

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GetFire implements IGetFire {
+public class GetFire extends GetAll implements IGetFire {
 
     /**
      * This URL return from Adress, the folowing informations :
@@ -62,25 +62,5 @@ public class GetFire implements IGetFire {
         fireList.setFireUrls(result2);
         return fireList;
     }
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-    @Override
-    public List<MedicalRecord> getMedAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
-
-    @Override
-    public List<Firestation> getFireAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getFirestations();
-    }
-
-
 
 }

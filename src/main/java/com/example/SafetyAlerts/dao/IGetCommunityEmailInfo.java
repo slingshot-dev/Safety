@@ -8,6 +8,5 @@ public interface IGetCommunityEmailInfo {
 
     Object getEmail(String city);
 
-    List<Person> getPersonAll();
 
 }

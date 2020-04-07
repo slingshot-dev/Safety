@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class GetPersonInfo implements IGetPersonInfo {
+public class GetPersonInfo extends GetAll implements IGetPersonInfo {
 
 
     /**
@@ -40,10 +40,6 @@ public class GetPersonInfo implements IGetPersonInfo {
                         personUrl.setLastName(person.getLastName());
                         personUrl.setEmail(person.getEmail());
 
-/*                        result2.add(person.getLastName());
-                        result2.add(person.getAddress());
-                        result2.add(person.getEmail());*/
-
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
                                 String birthDate = person2.getBirthdate();
@@ -55,9 +51,6 @@ public class GetPersonInfo implements IGetPersonInfo {
 
                                 result2.add(personUrl);
 
-/*                                result2.add(age);
-                                result2.add(person2.getMedications().toString());
-                                result2.add(person2.getAllergies().toString());*/
                             }
                         });
                     }
@@ -68,14 +61,4 @@ public class GetPersonInfo implements IGetPersonInfo {
     return personList;
     }
 
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-    @Override
-    public List<MedicalRecord> getMedAll(){
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getMedicalrecords();
-    }
 }
