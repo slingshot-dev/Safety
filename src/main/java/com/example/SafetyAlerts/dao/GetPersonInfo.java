@@ -1,9 +1,7 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
+import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 import java.util.*;
@@ -22,10 +20,12 @@ public class GetPersonInfo implements IGetPersonInfo {
      */
 
     @Override
-    public ArrayList<String> getPersonFindByName(String firstname, String lastname) {
+    public PersonList getPersonFindByName(String firstname, String lastname) {
 
     List<Person> result = getPersonAll();
-        ArrayList<String> result2 = new ArrayList<>();
+        ArrayList<PersonUrl> result2 = new ArrayList<>();
+
+        PersonList personList = new PersonList();
 
         result.forEach(person3 -> {
             if (person3.getLastName().contentEquals(lastname)) {
@@ -34,24 +34,38 @@ public class GetPersonInfo implements IGetPersonInfo {
 
                 result.forEach(person -> {
                     if (person.getLastName().contentEquals(lastname2) && person.getFirstName().contentEquals(firstname2)) {
-                        result2.add(person.getLastName());
+
+                        PersonUrl personUrl = new PersonUrl();
+                        personUrl.setFirstName(person.getFirstName());
+                        personUrl.setLastName(person.getLastName());
+                        personUrl.setEmail(person.getEmail());
+
+/*                        result2.add(person.getLastName());
                         result2.add(person.getAddress());
-                        result2.add(person.getEmail());
+                        result2.add(person.getEmail());*/
 
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
-                                result2.add(age);
+
+                                personUrl.setAllergies(person2.getAllergies());
+                                personUrl.setMedics(person2.getMedications());
+                                personUrl.setAge(age);
+
+                                result2.add(personUrl);
+
+/*                                result2.add(age);
                                 result2.add(person2.getMedications().toString());
-                                result2.add(person2.getAllergies().toString());
+                                result2.add(person2.getAllergies().toString());*/
                             }
                         });
                     }
                 });
            }
         });
-    return result2;
+        personList.setPersonUrls(result2);
+    return personList;
     }
 
     @Override

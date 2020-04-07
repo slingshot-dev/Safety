@@ -1,10 +1,7 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
+import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 
@@ -22,45 +19,47 @@ public class GetChildAlert implements IGetChildAlert {
      */
 
     @Override
-    public ArrayList<String> getChildAlert(String address) {
+    public ChildAlertList getChildAlert(String address) {
         List<Person> result = getPersonAll();
-        List<Firestation> resultFire = getFireAll();
-        List<MedicalRecord> resultMedAll = getMedAll();
         ArrayList<String> result2 = new ArrayList<>();
+        ArrayList<ChildAlertUrl> result3 = new ArrayList<>();
+
+        ChildAlertList childAlertList = new ChildAlertList();
 
 
-                result.forEach(person -> {
-                    if (person.getAddress().contentEquals(address)) {
-                        String firstname = person.getFirstName();
-                        String lastname = person.getLastName();
+        result.forEach(person -> {
+            if (person.getAddress().contentEquals(address)) {
+                String firstname = person.getFirstName();
+                String lastname = person.getLastName();
 
-                        getMedAll().forEach(person2 -> {
-                            if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
-                                String birthDate = person2.getBirthdate();
-                                String age = GetAge.getAge(birthDate);
-                                int ageInt = Integer.parseInt(age);
-                                if (ageInt <= 18 ) {
-                                    result2.add(person.getFirstName());
-                                    result2.add(person.getLastName());
-                                    result2.add(age);
+                getMedAll().forEach(person2 -> {
+                    if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
+                        String birthDate = person2.getBirthdate();
+                        String age = GetAge.getAge(birthDate);
+                        int ageInt = Integer.parseInt(age);
+                        if (ageInt <= 18) {
 
-                                    result.forEach(person3 -> {
-                                        if (person3.getLastName().contentEquals(lastname)) {
-                                            result2.add(person3.getFirstName());
-                                            result2.add(person3.getLastName());
-                                        }
-                                    });
+                            ChildAlertUrl childAlertUrl = new ChildAlertUrl();
+                            childAlertUrl.setFirstName(person.getFirstName());
+                            childAlertUrl.setLastName(person.getLastName());
+                            childAlertUrl.setAge(age);
 
+                            result.forEach(person3 -> {
+                                if (person3.getLastName().contentEquals(lastname)) {
+                                    result2.add(person3.getFirstName());
+                                    result2.add(person3.getLastName());
+
+                                    childAlertUrl.setPersonParFoyer(result2);
                                 }
-
-
-
-                              }
-                        });
+                            });
+                            result3.add(childAlertUrl);
+                        }
                     }
                 });
-
-        return result2;
+            }
+        });
+        childAlertList.setChildAlertUrlArrayList(result3);
+        return childAlertList;
     }
 
     @Override
@@ -70,17 +69,16 @@ public class GetChildAlert implements IGetChildAlert {
     }
 
     @Override
-    public List<MedicalRecord> getMedAll(){
+    public List<MedicalRecord> getMedAll() {
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getMedicalrecords();
     }
 
     @Override
-    public List<Firestation> getFireAll(){
+    public List<Firestation> getFireAll() {
         ObjectFromData objectsFromData = SafetyAlertsMapper.read();
         return objectsFromData.getFirestations();
     }
-
 
 
 }

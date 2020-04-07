@@ -2,7 +2,8 @@ package com.example.SafetyAlerts.dao;
 
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.Email;
+import com.example.SafetyAlerts.modeles.EmailUrl;
+import com.example.SafetyAlerts.modeles.EmailList;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.stereotype.Component;
@@ -15,39 +16,34 @@ import static java.util.stream.Collectors.toMap;
 public class GetCommunityEmailInfo implements IGetCommunityEmailInfo {
 
 
-
-
     @Override
-    public Object getEmail(String city) {
+    public EmailList getEmail(String city) {
 
-/*        ArrayList<Person> result = new ArrayList<>();*/
-        Email email = new Email();
-        List<String> result = new ArrayList<>();
+        List<EmailUrl> result = new ArrayList<>();
+        EmailList emailList = new EmailList();
 
         getPersonAll().forEach(person -> {
             if (person.getCity().contentEquals(city)) {
-                email.setFirstName(person.getFirstName());
-                email.setLastName(person.getLastName());
-                email.setEmail(person.getEmail());
-
-
-                result.add(email.getFirstName());
-                result.add(email.getLastName());
-                result.add(email.getEmail());
-
-
+                EmailUrl emailUrl = new EmailUrl();
+                emailUrl.setFirstName(person.getFirstName());
+                emailUrl.setLastName(person.getLastName());
+                emailUrl.setEmail(person.getEmail());
+                result.add(emailUrl);
             }
         });
-        return result;
+        emailList.setEmailUrls(result);
+        return emailList;
     }
 
-
-
-
-
-
-/*
     @Override
+    public List<Person> getPersonAll() {
+        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+        return objectsFromData.getPersons();
+    }
+
+}
+
+/*    @Override
     public ArrayList<String> getEmail(String city) {
 
         ArrayList<String> result = new ArrayList<>();
@@ -58,13 +54,4 @@ public class GetCommunityEmailInfo implements IGetCommunityEmailInfo {
             }
         });
             return result;
-    }
-*/
-
-    @Override
-    public List<Person> getPersonAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        return objectsFromData.getPersons();
-    }
-
-}
+    }*/

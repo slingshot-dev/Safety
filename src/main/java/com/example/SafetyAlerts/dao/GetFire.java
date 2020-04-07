@@ -1,10 +1,7 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
+import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +19,14 @@ public class GetFire implements IGetFire {
      */
 
     @Override
-    public ArrayList<String> getFire(String address) {
+    public FireList getFire(String address) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
-        ArrayList<String> result2 = new ArrayList<>();
+        ArrayList<FireUrl> result2 = new ArrayList<>();
+
+        FireList fireList = new FireList();
+
 
         resultFire.forEach(firestation -> {
             if (firestation.getAddress().contentEquals(address)) {
@@ -36,25 +36,31 @@ public class GetFire implements IGetFire {
                     if (person.getAddress().contentEquals(address)) {
                         String firstname = person.getFirstName();
                         String lastname = person.getLastName();
-                        result2.add(person.getFirstName());
-                        result2.add(person.getLastName());
-                        result2.add(person.getPhone());
+
+                        FireUrl fireUrl = new FireUrl();
+                        fireUrl.setFirstName(person.getFirstName());
+                        fireUrl.setLastName(person.getLastName());
+                        fireUrl.setPhone(person.getPhone());
 
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
-                                result2.add(age);
-                                result2.add(person2.getMedications().toString());
-                                result2.add(person2.getAllergies().toString());
-                                result2.add(numStation);
+
+                                fireUrl.setAge(age);
+                                fireUrl.setAllergies(person2.getAllergies());
+                                fireUrl.setMedics(person2.getMedications());
+                                fireUrl.setFirestationNumber(numStation);
+
+                                result2.add(fireUrl);
                             }
                         });
                     }
                 });
             }
         });
-        return result2;
+        fireList.setFireUrls(result2);
+        return fireList;
     }
 
     @Override

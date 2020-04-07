@@ -1,11 +1,7 @@
 package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
-import com.example.SafetyAlerts.utils.GetAge;
+import com.example.SafetyAlerts.modeles.*;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
@@ -21,11 +17,14 @@ public class GetPhoneAlert implements IGetPhoneAlert {
      */
 
     @Override
-    public ArrayList<String> getPhoneAlert(String station) {
+    public PhoneAlertList getPhoneAlert(String station) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
-        ArrayList<String> result2 = new ArrayList<>();
+        ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
+
+        PhoneAlertList phoneAlertList = new PhoneAlertList();
+
 
         resultFire.forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
@@ -33,14 +32,22 @@ public class GetPhoneAlert implements IGetPhoneAlert {
 
                 result.forEach(person -> {
                     if (person.getAddress().contentEquals(adress)) {
-                        result2.add(person.getFirstName());
-                        result2.add(person.getLastName());
-                        result2.add(person.getPhone());
+
+                        PhoneAlertUrl phoneAlertUrl = new PhoneAlertUrl();
+                        phoneAlertUrl.setFirstName(person.getFirstName());
+                        phoneAlertUrl.setLastName(person.getLastName());
+                        phoneAlertUrl.setPhone(person.getPhone());
+
+                        result2.add(phoneAlertUrl);
+/*                        result2.add(person.getLastName());
+                        result2.add(person.getPhone());*/
                     }
                 });
             }
         });
-        return result2;
+
+        phoneAlertList.setPhoneAlertUrls(result2);
+        return phoneAlertList;
     }
 
     @Override
