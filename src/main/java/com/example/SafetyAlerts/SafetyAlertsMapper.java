@@ -4,10 +4,8 @@ import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 @Component
 public class SafetyAlertsMapper {
@@ -27,4 +25,19 @@ public class SafetyAlertsMapper {
         }
     return objectFromData;
     }
+
+
+    public static void write(ObjectFromData objectFromData){
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // write JSON Object to file
+            objectMapper.writeValue(new File("src/main/resources/data.json"), objectFromData);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

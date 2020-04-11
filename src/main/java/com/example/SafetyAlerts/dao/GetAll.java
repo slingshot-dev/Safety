@@ -28,4 +28,7 @@ public class GetAll implements IGetAll{
         return objectsFromData.getFirestations();
     }
 
+
+
+
 }

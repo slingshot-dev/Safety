@@ -11,10 +11,4 @@ public interface IGetChildAlert {
 
     ChildAlertList getChildAlert(String address);
 
-/*    List<Person> getPersonAll();
-
-    List<MedicalRecord> getMedAll();
-
-    List<Firestation> getFireAll();*/
-
 }
