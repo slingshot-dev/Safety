@@ -30,7 +30,7 @@ public class SetNewPerson implements ISetNewPerson{
         firestation.setStation(station);
         objectFromDatas.getFirestations().add(firestation);
 
-        // Ajout des Recors Medicaux en fonction al Personne ajoutée
+        // Ajout d'un dossier Medical vide en fonction de la Personne ajoutée
         medicalRecord.setFirstName(addPerson.getFirstName());
         medicalRecord.setLastName(addPerson.getLastName());
         medicalRecord.setBirthdate("TbD");

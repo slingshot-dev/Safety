@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/person")
-public class RestControllerPerson {
+public class RestControllerPersonPPD {
 
 @Autowired
     SetNewPerson setNewPerson;
