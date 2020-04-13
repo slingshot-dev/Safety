@@ -1,12 +1,13 @@
 package com.example.SafetyAlerts.controllers;
 
-
 import com.example.SafetyAlerts.dao.GetChildAlert;
-import com.example.SafetyAlerts.modeles.ChildAlertList;
+import com.example.SafetyAlerts.modeles.ChildAlertUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/childAlert")
@@ -17,7 +18,7 @@ public class RestControllerChildAlert {
 
     @GetMapping
     // @ResponseBody
-    public ChildAlertList getChildAlert(String address)  {
+    public ArrayList<ChildAlertUrl> getChildAlert(String address)  {
 
         return getChildAlert.getChildAlert(address);
     }

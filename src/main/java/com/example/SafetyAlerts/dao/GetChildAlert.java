@@ -1,66 +1,60 @@
 package com.example.SafetyAlerts.dao;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-public class GetChildAlert extends GetAll implements IGetChildAlert {
+public class GetChildAlert extends GetAll {
 
-    /**
-     * This URL return from Address, the folowing informations :
-     * enfant de 18 ans ou moins, Firstname, Lastname, age, autres mebres du foyer.
-     *
-     * @return
-     */
 
-    @Override
-    public ChildAlertList getChildAlert(String address) {
+    public ArrayList<ChildAlertUrl> getChildAlert(String address) {
         List<Person> result = getPersonAll();
-        ArrayList<String> result2 = new ArrayList<>();
+        List<MedicalRecord> resultMedic = getMedAll();
         ArrayList<ChildAlertUrl> result3 = new ArrayList<>();
 
-        ChildAlertList childAlertList = new ChildAlertList();
 
+        // Liste de personnes a l'adresse demandée
+        List<Person> resultPersonAddress = result.stream().filter(child1 -> (child1.getAddress().contentEquals(address))).collect(Collectors.toList());
 
-        result.forEach(person -> {
+        // pour chaque personne recuperation du prenom et nom
+        resultPersonAddress.forEach(person -> {
             if (person.getAddress().contentEquals(address)) {
                 String firstname = person.getFirstName();
                 String lastname = person.getLastName();
 
-                getMedAll().forEach(person2 -> {
-                    if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
-                        String birthDate = person2.getBirthdate();
-                        String age = GetAge.getAge(birthDate);
-                        int ageInt = Integer.parseInt(age);
-                        if (ageInt <= 18) {
+                // extraction de la personne dans Medical Record et verification de l'age
+                List<MedicalRecord> resultPersonByName = resultMedic.stream()
+                        .filter(person1 ->
+                                (person1.getFirstName().contentEquals(firstname) &&
+                                        person1.getLastName().contentEquals(lastname)))
+                        .collect(Collectors.toList());
+                String birthDate = resultPersonByName.get(0).getBirthdate();
+                String age = GetAge.getAge(birthDate);
+                int ageInt = Integer.parseInt(age);
 
-                            ChildAlertUrl childAlertUrl = new ChildAlertUrl();
-                            childAlertUrl.setFirstName(person.getFirstName());
-                            childAlertUrl.setLastName(person.getLastName());
-                            childAlertUrl.setAge(age);
+                // Si 18 ans ou moins on ajoute l'enfant
+                if (ageInt <= 18) {
 
-                            result.forEach(person3 -> {
-                                if (person3.getLastName().contentEquals(lastname)) {
-                                    result2.add(person3.getFirstName());
-                                    result2.add(person3.getLastName());
+                    ChildAlertUrl childAlertUrl = new ChildAlertUrl();
+                    childAlertUrl.setFirstName(resultPersonByName.get(0).getFirstName());
+                    childAlertUrl.setLastName(resultPersonByName.get(0).getLastName());
+                    childAlertUrl.setAge(age);
 
-                                    childAlertUrl.setPersonParFoyer(result2);
-                                }
-                            });
-                            result3.add(childAlertUrl);
-                        }
-                    }
-                });
+                    // recuperation de la liste initale que l'on ajoute au foyer sans l'enfant.
+                    List<Person> resultPersonParFoyer = resultPersonAddress.stream().filter(adults -> (adults.getLastName().contentEquals(lastname) && !adults.getFirstName().contentEquals(firstname))).collect(Collectors.toList());
+                    childAlertUrl.setPersonParFoyers(resultPersonParFoyer);
+
+                    result3.add(childAlertUrl);
+                }
             }
         });
-        childAlertList.setChildAlertUrlArrayList(result3);
-        return childAlertList;
+        return result3;
     }
-
 }
+
 

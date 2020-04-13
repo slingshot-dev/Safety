@@ -1,6 +1,5 @@
 package com.example.SafetyAlerts.dao;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
@@ -20,16 +19,19 @@ public class GetFirestation extends GetAll implements IGetFirestation {
      * @return
      */
 
+
     @Override
-    public FirestationList getFirestation(String station) {
+    public FirestationUrl getFirestation(String station) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
-        ArrayList<FirestationUrl> result2 = new ArrayList<>();
-        AtomicInteger ageAdult = new AtomicInteger();
-        AtomicInteger ageEnfant = new AtomicInteger();
 
-        FirestationList firestationList = new FirestationList();
+        ArrayList<PersonParFirestation> result2 = new ArrayList<>();
+        FirestationUrl firestationUrl = new FirestationUrl();
+
+        AtomicInteger ageEnfant = new AtomicInteger();
+        AtomicInteger ageAdult = new AtomicInteger();
+
 
         resultFire.forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
@@ -40,12 +42,15 @@ public class GetFirestation extends GetAll implements IGetFirestation {
                         String firstname = person.getFirstName();
                         String lastname = person.getLastName();
 
-                        FirestationUrl firestationUrl = new FirestationUrl();
+                        PersonParFirestation personParFirestation = new PersonParFirestation();
 
-                        firestationUrl.setFirstName(person.getFirstName());
-                        firestationUrl.setLastName(person.getLastName());
-                        firestationUrl.setAddress(person.getAddress());
-                        firestationUrl.setPhone(person.getPhone());
+                        personParFirestation.setFirstName(person.getFirstName());
+                        personParFirestation.setLastName(person.getLastName());
+                        personParFirestation.setAddress(person.getAddress());
+                        personParFirestation.setPhone(person.getPhone());
+
+                        result2.add(personParFirestation);
+                        firestationUrl.setPersons(result2);
 
                         getMedAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
@@ -58,21 +63,14 @@ public class GetFirestation extends GetAll implements IGetFirestation {
                                 } else {
                                     ageAdult.getAndIncrement();
                                 }
-                                firestationUrl.setNbAdults(String.valueOf(ageAdult));
-                                firestationUrl.setNbEnfants(String.valueOf(ageEnfant));
-
-                                result2.add(firestationUrl);
-
+                                firestationUrl.setNbAdults(String.valueOf(ageAdult.get()));
+                                firestationUrl.setNbEnfants(String.valueOf(ageEnfant.get()));
                             }
                         });
-                    }
+                     }
                 });
             }
         });
-        System.out.println(ageAdult +" "+ageEnfant);
-
-        firestationList.setFirestations(result2);
-        return firestationList;
+        return firestationUrl;
     }
-
 }

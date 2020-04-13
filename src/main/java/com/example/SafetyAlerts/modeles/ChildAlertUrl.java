@@ -1,13 +1,13 @@
 package com.example.SafetyAlerts.modeles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChildAlertUrl {
-
     private String firstName;
     private String lastName;
     private String age;
-    private List<String> personParFoyer;
+    List<Person> personParFoyers;
 
     public String getFirstName() {
         return firstName;
@@ -33,11 +33,11 @@ public class ChildAlertUrl {
         this.age = age;
     }
 
-    public List<String> getPersonParFoyer() {
-        return personParFoyer;
+    public List<Person> getPersonParFoyers() {
+        return personParFoyers;
     }
 
-    public void setPersonParFoyer(List<String> personParFoyer) {
-        this.personParFoyer = personParFoyer;
+    public void setPersonParFoyers(List<Person> personParFoyers) {
+        this.personParFoyers = personParFoyers;
     }
 }
