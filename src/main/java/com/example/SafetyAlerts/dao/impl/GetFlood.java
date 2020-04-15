@@ -1,6 +1,7 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.IGetFlood;
+import com.example.SafetyAlerts.dao.impl.GetAll;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
@@ -17,14 +18,18 @@ public class GetFlood extends GetAll implements IGetFlood {
      * @return
      */
 
+    private final FloodList floodList;
+    public GetFlood(FloodList floodList) {
+        this.floodList = floodList;
+    }
+
+
     @Override
     public FloodList getFlood(String station) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
         ArrayList<FloodUrl> result2 = new ArrayList<>();
-
-        FloodList floodList = new FloodList();
 
 
         resultFire.forEach(firestation -> {

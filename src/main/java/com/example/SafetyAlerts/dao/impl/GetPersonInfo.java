@@ -1,6 +1,7 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.IGetPersonInfo;
+import com.example.SafetyAlerts.dao.impl.GetAll;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
@@ -19,13 +20,19 @@ public class GetPersonInfo extends GetAll implements IGetPersonInfo {
      * @return
      */
 
+    private final PersonList personList;
+    public GetPersonInfo(PersonList personList) {
+        this.personList = personList;
+    }
+
+
     @Override
     public PersonList getPersonFindByName(String firstname, String lastname) {
 
     List<Person> result = getPersonAll();
         ArrayList<PersonUrl> result2 = new ArrayList<>();
 
-        PersonList personList = new PersonList();
+
 
         result.forEach(person3 -> {
             if (person3.getLastName().contentEquals(lastname)) {

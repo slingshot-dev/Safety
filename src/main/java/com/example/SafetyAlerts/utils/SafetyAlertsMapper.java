@@ -1,4 +1,4 @@
-package com.example.SafetyAlerts;
+package com.example.SafetyAlerts.utils;
 
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 
-@Component
+
 public class SafetyAlertsMapper {
 
     public static ObjectFromData read() {

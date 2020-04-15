@@ -1,23 +1,26 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.ISetNewPerson;
+import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
 import com.example.SafetyAlerts.modeles.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SetNewPerson implements ISetNewPerson{
+public class SetNewPerson implements ISetNewPerson {
 
-    @Autowired
-    SafetyAlertsMapper safetyAlertsMapper;
+
+    private final MedicalRecord medicalRecord;
+    public SetNewPerson(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
+    }
+
 
     @Override
     public void setAddPerson(Person addPerson) {
 
         Firestation firestation = new Firestation();
-        MedicalRecord medicalRecord = new MedicalRecord();
         ObjectFromData objectFromDatas = SafetyAlertsMapper.read();
 
         // Ajout d'un objet complet(une personne) a la Liste de Person.

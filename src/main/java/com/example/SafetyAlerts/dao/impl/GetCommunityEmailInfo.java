@@ -1,26 +1,28 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.IGetCommunityEmailInfo;
+import com.example.SafetyAlerts.dao.impl.GetAll;
 import com.example.SafetyAlerts.modeles.EmailUrl;
 import com.example.SafetyAlerts.modeles.EmailList;
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
 
-import static java.util.stream.Collectors.toMap;
 
 @Component
 public class GetCommunityEmailInfo extends GetAll implements IGetCommunityEmailInfo {
+
+
+    private final EmailList emailList;
+    public GetCommunityEmailInfo(EmailList emailList) {
+        this.emailList = emailList;
+    }
 
 
     @Override
     public EmailList getEmail(String city) {
 
         List<EmailUrl> result = new ArrayList<>();
-        EmailList emailList = new EmailList();
 
         getPersonAll().forEach(person -> {
             if (person.getCity().contentEquals(city)) {

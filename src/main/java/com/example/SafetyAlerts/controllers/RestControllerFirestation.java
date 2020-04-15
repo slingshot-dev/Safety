@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.GetFirestation;
+import com.example.SafetyAlerts.dao.IGetFirestation;
 import com.example.SafetyAlerts.modeles.FirestationUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/firestation")
 public class RestControllerFirestation {
 
-    @Autowired
-    private GetFirestation getFirestation;
+    private final IGetFirestation igetFirestation;
+    public RestControllerFirestation(IGetFirestation iGetFirestation) {
+        this.igetFirestation = iGetFirestation;
+    }
+
 
     @GetMapping
     // @ResponseBody
     public FirestationUrl getFirestation(@RequestParam("stationNumber") String station)  {
 
-        return getFirestation.getFirestation(station);
+        return igetFirestation.getFirestation(station);
     }
 
 

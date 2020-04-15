@@ -2,6 +2,7 @@ package com.example.SafetyAlerts.modeles;
 
 import org.springframework.stereotype.Component;
 
+@Component
 public class Person {
 
     private String firstName;

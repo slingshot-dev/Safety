@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.GetPhoneAlert;
+import com.example.SafetyAlerts.dao.IGetPhoneAlert;
 import com.example.SafetyAlerts.modeles.PhoneAlertList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/phoneAlert")
 public class RestControllerPhoneAlert {
 
-    @Autowired
-    private GetPhoneAlert getPhoneAlert;
+
+    private final IGetPhoneAlert igetPhoneAlert;
+    public RestControllerPhoneAlert(IGetPhoneAlert igetPhoneAlert) {
+        this.igetPhoneAlert = igetPhoneAlert;
+    }
 
     @GetMapping
     // @ResponseBody
     public PhoneAlertList getPhoneAlert(String station)  {
 
-        return getPhoneAlert.getPhoneAlert(station);
+        return igetPhoneAlert.getPhoneAlert(station);
     }
 }

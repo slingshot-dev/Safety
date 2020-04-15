@@ -1,26 +1,33 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
-import com.example.SafetyAlerts.modeles.Firestation;
+import com.example.SafetyAlerts.dao.ISetNewMedic;
+import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
 import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SetNewMedic implements ISetMedic {
+public class SetNewMedic implements ISetNewMedic {
 
-    @Autowired
-    SafetyAlertsMapper safetyAlertsMapper;
+/*    @Autowired
+    SafetyAlertsMapper safetyAlertsMapper;*/
+    private final MedicalRecord medicalRecord;
+    private final Person person;
+    public SetNewMedic(Person person, MedicalRecord medicalRecord) {
+        this.person = person;
+        this.medicalRecord = medicalRecord;
+    }
+
+
 
     @Override
     public void setAddMedic(MedicalRecord addMedic) {
 
-        Person person = new Person();
+
         ObjectFromData objectFromDatas = SafetyAlertsMapper.read();
 
         // Ajout d'un objet complet(un dossier Medical) a la Liste de MedicalRecord.
@@ -74,7 +81,7 @@ public class SetNewMedic implements ISetMedic {
 
         ObjectFromData objectFromDatas = SafetyAlertsMapper.read();
         List<Person> resultPerson = objectFromDatas.getPersons();
-        MedicalRecord medicalRecord = new MedicalRecord();
+/*        MedicalRecord medicalRecord = new MedicalRecord();*/
         List<MedicalRecord> resultMedic = objectFromDatas.getMedicalrecords();
 
         String firstname = removeMedic.getFirstName();

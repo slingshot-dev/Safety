@@ -2,7 +2,7 @@ package com.example.SafetyAlerts.dao;
 
 import com.example.SafetyAlerts.modeles.MedicalRecord;
 
-public interface ISetMedic {
+public interface ISetNewMedic {
 
     void setAddMedic(MedicalRecord addMedic);
 

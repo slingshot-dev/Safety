@@ -1,6 +1,7 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.IGetFire;
+import com.example.SafetyAlerts.dao.impl.GetAll;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
@@ -18,14 +19,18 @@ public class GetFire extends GetAll implements IGetFire {
      * @return
      */
 
+    private final FireList fireList;
+    public GetFire(FireList fireList) {
+        this.fireList = fireList;
+    }
+
+
     @Override
     public FireList getFire(String address) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
         ArrayList<FireUrl> result2 = new ArrayList<>();
-
-        FireList fireList = new FireList();
 
 
         resultFire.forEach(firestation -> {

@@ -1,6 +1,6 @@
 package com.example.SafetyAlerts.controllers;
 
-import com.example.SafetyAlerts.dao.SetNewPerson;
+import com.example.SafetyAlerts.dao.ISetNewPerson;
 import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,32 +10,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/person")
 public class RestControllerPersonPPD {
 
-@Autowired
-    SetNewPerson setNewPerson;
+
+    private final ISetNewPerson isetNewPerson;
+    public RestControllerPersonPPD(ISetNewPerson isetNewPerson) {
+        this.isetNewPerson = isetNewPerson;
+    }
 
     @PostMapping("/post")
     public void addPerson(Person person) {
-        setNewPerson.setAddPerson(person);
+        isetNewPerson.setAddPerson(person);
     }
 
     @PutMapping("/put")
     public void updatePerson(Person putPerson){
-        setNewPerson.setUpdatePerson(putPerson);
+        isetNewPerson.setUpdatePerson(putPerson);
     }
 
     @DeleteMapping("/delete")
     public void removePerson(Person removePerson){
-        setNewPerson.setRemovePerson(removePerson);
+        isetNewPerson.setRemovePerson(removePerson);
     }
 
 
-/*    public @ResponseBody
-
-    ResponseEntity<String> post() {
-
-
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
-    }*/
-
-    }
+}
 

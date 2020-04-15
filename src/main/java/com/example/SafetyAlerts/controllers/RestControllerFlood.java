@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.GetFlood;
+import com.example.SafetyAlerts.dao.IGetFlood;
 import com.example.SafetyAlerts.modeles.FloodList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/flood")
 public class RestControllerFlood {
 
-    @Autowired
-    private GetFlood getFlood;
+
+    private final IGetFlood igetFlood;
+    public RestControllerFlood(IGetFlood igetFlood) {
+        this.igetFlood = igetFlood;
+    }
+
 
     @GetMapping
-    // @ResponseBody
     public FloodList getFlood(String station)  {
 
-        return getFlood.getFlood(station);
+        return igetFlood.getFlood(station);
     }
 
 

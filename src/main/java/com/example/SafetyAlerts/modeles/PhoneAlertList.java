@@ -1,7 +1,10 @@
 package com.example.SafetyAlerts.modeles;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
 public class PhoneAlertList {
 
     ArrayList<PhoneAlertUrl> phoneAlertUrls = new ArrayList<>();

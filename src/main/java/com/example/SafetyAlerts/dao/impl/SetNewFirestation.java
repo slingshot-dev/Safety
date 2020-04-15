@@ -1,10 +1,9 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.ISetNewFirestation;
+import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
 import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SetNewFirestation implements ISetNewFirestation{
+public class SetNewFirestation implements ISetNewFirestation {
 
-    @Autowired
-    SafetyAlertsMapper safetyAlertsMapper;
+
 
     @Override
     public void setAddFirestation(Firestation addFirestation) {
 
-        Firestation firestation = new Firestation();
         ObjectFromData objectFromDatas = SafetyAlertsMapper.read();
 
         // Ajout d'un objet complet(une firestation) a la Liste de Firestation.
@@ -65,7 +62,11 @@ public class SetNewFirestation implements ISetNewFirestation{
         String station = removeFirestation.getStation();
 
         // Suppression d'une personne dans Person
-        List<Firestation> filteredList = resultFire.stream().filter(fire1 -> (!fire1.getAddress().contentEquals(address) && !fire1.getStation().contentEquals(station))).collect(Collectors.toList());
+        List<Firestation> filteredList = resultFire.stream()
+                .filter(fire1 -> (!fire1.getAddress()
+                        .contentEquals(address) && !fire1.getStation()
+                        .contentEquals(station)))
+                .collect(Collectors.toList());
         objectFromDatas.setFirestations(filteredList);
         SafetyAlertsMapper.write(objectFromDatas);
 

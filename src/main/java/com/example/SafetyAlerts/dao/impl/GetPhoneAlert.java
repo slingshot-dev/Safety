@@ -1,6 +1,7 @@
-package com.example.SafetyAlerts.dao;
+package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.SafetyAlertsMapper;
+import com.example.SafetyAlerts.dao.IGetPhoneAlert;
+import com.example.SafetyAlerts.dao.impl.GetAll;
 import com.example.SafetyAlerts.modeles.*;
 import org.springframework.stereotype.Component;
 import java.util.*;
@@ -16,15 +17,18 @@ public class GetPhoneAlert extends GetAll implements IGetPhoneAlert {
      * @return
      */
 
+    private final PhoneAlertList phoneAlertList;
+    public GetPhoneAlert(PhoneAlertList phoneAlertList) {
+        this.phoneAlertList = phoneAlertList;
+    }
+
+
     @Override
     public PhoneAlertList getPhoneAlert(String station) {
 
         List<Person> result = getPersonAll();
         List<Firestation> resultFire = getFireAll();
         ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
-
-        PhoneAlertList phoneAlertList = new PhoneAlertList();
-
 
         resultFire.forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {

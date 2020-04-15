@@ -1,7 +1,10 @@
 package com.example.SafetyAlerts.modeles;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class MedicalRecord {
     private String firstName;
     private String lastName;

@@ -8,15 +8,19 @@ import java.util.Locale;
 public class GetAge {
 
     public static String getAge(String birthDate) {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-                .withLocale(Locale.FRENCH);
+        int calculAge = 0;
 
-        LocalDate date = LocalDate.parse(birthDate, formatter);
-        int calculAge = Period.between(date, localDate).getYears();
+        if (!birthDate.equals("TbD")) {
+            LocalDate localDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+                    .withLocale(Locale.FRENCH);
+
+            LocalDate date = LocalDate.parse(birthDate, formatter);
+            calculAge = Period.between(date, localDate).getYears();
+        } else {
+            return "TbD";
+        }
 
         return String.valueOf(calculAge);
     }
-
-
 }
