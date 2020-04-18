@@ -1,10 +1,11 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.IGetPersonInfo;
-import com.example.SafetyAlerts.modeles.PersonList;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.SafetyAlerts.modeles.PersonUrl;
+import com.example.SafetyAlerts.services.GetPersonInfo;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -12,17 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class RestControllerPersonsInfo {
 
 
-    private final IGetPersonInfo igetPersonInfo;
-    public RestControllerPersonsInfo(IGetPersonInfo igetPersonInfo) {
-        this.igetPersonInfo = igetPersonInfo;
-    }
+    GetPersonInfo getPersonInfo = new GetPersonInfo();
 
     @GetMapping
-    // @ResponseBody
-    public PersonList getPersonx(String firstname, String lastname) {
+    public List<PersonUrl> getPerson(String firstname, String lastname) {
 
-        return igetPersonInfo.getPersonFindByName(firstname, lastname);
+        return getPersonInfo.getPersonFindByName(firstname, lastname);
     }
+
+
 
 }
 

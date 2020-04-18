@@ -1,37 +1,28 @@
 package com.example.SafetyAlerts.controllers;
 
-import com.example.SafetyAlerts.dao.ISetNewMedic;
 import com.example.SafetyAlerts.modeles.MedicalRecord;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.SafetyAlerts.services.SetMedic;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/medicalRecord")
 public class RestControllerMedicPPD {
 
-        private final ISetNewMedic isetNewMedic;
-        public RestControllerMedicPPD(ISetNewMedic isetNewMedic) {
-            this.isetNewMedic = isetNewMedic;
-        }
+    SetMedic setMedic = new SetMedic();
 
-
-        @PostMapping("/post")
-        public void addMedic(MedicalRecord addMedicalRecord) {
-            isetNewMedic.setAddMedic(addMedicalRecord);
-        }
-
-        @PutMapping("/put")
-        public void updateMedic(MedicalRecord putMedicalRecord){
-            isetNewMedic.setUpdateMedic(putMedicalRecord);
-        }
-
-        @DeleteMapping("/delete")
-        public void removeMedic(MedicalRecord removeMedicalRecord){
-            isetNewMedic.setRemoveMedic(removeMedicalRecord);
-        }
+    @PostMapping("/post")
+    public void addMedic(MedicalRecord addMedicalRecord) {
+        setMedic.setAddMedic(addMedicalRecord);
     }
 
+    @PutMapping("/put")
+    public void updateMedic(MedicalRecord putMedicalRecord){
+        setMedic.setUpdateMedic(putMedicalRecord);
+    }
 
+    @DeleteMapping("/delete")
+    public void removeMedic(MedicalRecord removeMedicalRecord){
+        setMedic.setRemoveMedic(removeMedicalRecord);
+    }
 
-
-
+}

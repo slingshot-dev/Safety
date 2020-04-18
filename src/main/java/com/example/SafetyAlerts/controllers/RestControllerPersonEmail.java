@@ -1,10 +1,9 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.IGetCommunityEmailInfo;
+import com.example.SafetyAlerts.services.GetCommunityEmailInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,11 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestControllerPersonEmail {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
 
-    private final IGetCommunityEmailInfo igetCommunityEmailInfo;
-    public RestControllerPersonEmail(IGetCommunityEmailInfo igetCommunityEmailInfo) {
-        this.igetCommunityEmailInfo = igetCommunityEmailInfo;
-    }
-
+    GetCommunityEmailInfo getCommunityEmailInfo = new GetCommunityEmailInfo();
 
     @GetMapping
     public Object getEmail(@RequestParam("city") String city) throws Exception {
@@ -28,7 +23,7 @@ public class RestControllerPersonEmail {
             throw new Exception("Parameter : city value, is necessary");
         } else {
             logger.info("Get Emails OK");
-            return igetCommunityEmailInfo.getEmail(city);
+            return getCommunityEmailInfo.getEmail(city);
         }
     }
 }

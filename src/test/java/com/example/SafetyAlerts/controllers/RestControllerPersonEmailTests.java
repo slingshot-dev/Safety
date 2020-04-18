@@ -1,15 +1,18 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.impl.GetCommunityEmailInfo;
+import com.example.SafetyAlerts.services.GetCommunityEmailInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,16 +24,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class RestControllerPersonEmailTests {
 
-@Autowired
-MockMvc mockMvc;
-@Autowired
-private GetCommunityEmailInfo getCommunityEmailInfo;
-@Autowired
-private RestControllerPersonEmail restControllerPersonEmail;
+    RestControllerPersonEmail restControllerPersonEmail = new RestControllerPersonEmail();
+
+    @Autowired
+    MockMvc mockMvc;
+
+
 
     @Test
         public void contextLoads() {
-        assertThat(getCommunityEmailInfo).isNotNull();
         assertThat(restControllerPersonEmail).isNotNull();
         }
 
@@ -50,6 +52,14 @@ private RestControllerPersonEmail restControllerPersonEmail;
                 .andExpect(status().is4xxClientError());
     }
 
+    @Test
+    public void PostFirestation() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(post("/firestation/post/?address=10 rue de Paris&station=7"))
+                .andDo(print()).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
 
 }
 

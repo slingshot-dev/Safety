@@ -1,14 +1,16 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetPersonInfo;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.impl.FirestationDAO;
+import com.example.SafetyAlerts.dao.impl.MedicDA0;
+import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
-@Component
-public class GetPersonInfo extends GetAll implements IGetPersonInfo {
+
+public class GetPersonInfo {
 
 
     /**
@@ -20,19 +22,17 @@ public class GetPersonInfo extends GetAll implements IGetPersonInfo {
      * @return
      */
 
-    private final PersonList personList;
-    public GetPersonInfo(PersonList personList) {
-        this.personList = personList;
-    }
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
+    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
 
 
-    @Override
-    public PersonList getPersonFindByName(String firstname, String lastname) {
+    public List<PersonUrl> getPersonFindByName(String firstname, String lastname) {
 
-    List<Person> result = getPersonAll();
-        ArrayList<PersonUrl> result2 = new ArrayList<>();
+        List<Person> result = personDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
 
-
+        List<PersonUrl> result2 = new ArrayList<>();
 
         result.forEach(person3 -> {
             if (person3.getLastName().contentEquals(lastname)) {
@@ -47,7 +47,7 @@ public class GetPersonInfo extends GetAll implements IGetPersonInfo {
                         personUrl.setLastName(person.getLastName());
                         personUrl.setEmail(person.getEmail());
 
-                        getMedAll().forEach(person2 -> {
+                        resultMedic.forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
@@ -62,10 +62,10 @@ public class GetPersonInfo extends GetAll implements IGetPersonInfo {
                         });
                     }
                 });
-           }
+            }
         });
-        personList.setPersonUrls(result2);
-    return personList;
+        return result2;
     }
 
 }
+

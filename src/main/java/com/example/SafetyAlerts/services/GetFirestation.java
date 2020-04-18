@@ -1,17 +1,18 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetFirestation;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.impl.FirestationDAO;
+import com.example.SafetyAlerts.dao.impl.MedicDA0;
+import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Component
-public class GetFirestation extends GetAll implements IGetFirestation {
+
+public class GetFirestation {
 
     /**
      * This URL return from Station number, the folowing informations :
@@ -21,17 +22,17 @@ public class GetFirestation extends GetAll implements IGetFirestation {
      * @return
      */
 
-    private final FirestationUrl firestationUrl;
-    public GetFirestation(FirestationUrl firestationUrl) {
-        this.firestationUrl = firestationUrl;
-    }
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
+    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
 
+    FirestationUrl firestationUrl = new FirestationUrl();
 
-    @Override
     public FirestationUrl getFirestation(String station) {
 
-        List<Person> result = getPersonAll();
-        List<Firestation> resultFire = getFireAll();
+        List<Person> result = personDAO.getAll();
+        List<Firestation> resultFire = firestationDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
         ArrayList<PersonParFirestation> result2 = new ArrayList<>();
 
         AtomicInteger ageEnfant = new AtomicInteger();
@@ -57,7 +58,7 @@ public class GetFirestation extends GetAll implements IGetFirestation {
                         result2.add(personParFirestation);
                         firestationUrl.setPersons(result2);
 
-                        getMedAll().forEach(person2 -> {
+                        resultMedic.forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
@@ -72,10 +73,11 @@ public class GetFirestation extends GetAll implements IGetFirestation {
                                 firestationUrl.setNbEnfants(String.valueOf(ageEnfant.get()));
                             }
                         });
-                     }
+                    }
                 });
             }
         });
         return firestationUrl;
     }
 }
+

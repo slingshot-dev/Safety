@@ -1,24 +1,24 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetChildAlert;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.impl.MedicDA0;
+import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class GetChildAlert extends GetAll implements IGetChildAlert {
 
+public class GetChildAlert {
 
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
 
-    @Override
     public ArrayList<ChildAlertUrl> getChildAlert(String address) {
-        List<Person> result = getPersonAll();
-        List<MedicalRecord> resultMedic = getMedAll();
+        List<Person> result = personDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
         ArrayList<ChildAlertUrl> result3 = new ArrayList<>();
 
 
@@ -60,5 +60,4 @@ public class GetChildAlert extends GetAll implements IGetChildAlert {
         return result3;
     }
 }
-
 

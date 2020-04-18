@@ -1,30 +1,26 @@
 package com.example.SafetyAlerts.controllers;
 
 
-import com.example.SafetyAlerts.dao.IGetFlood;
-import com.example.SafetyAlerts.modeles.FloodList;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.SafetyAlerts.modeles.FloodUrl;
+import com.example.SafetyAlerts.services.GetFlood;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/flood")
 public class RestControllerFlood {
 
 
-    private final IGetFlood igetFlood;
-    public RestControllerFlood(IGetFlood igetFlood) {
-        this.igetFlood = igetFlood;
-    }
+GetFlood getFlood = new GetFlood();
 
 
     @GetMapping
-    public FloodList getFlood(String station)  {
+    public List<FloodUrl> getFlood(String station)  {
 
-        return igetFlood.getFlood(station);
+        return getFlood.getFlood(station);
     }
-
-
 
 }

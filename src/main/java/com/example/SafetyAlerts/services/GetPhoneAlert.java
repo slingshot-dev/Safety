@@ -1,13 +1,14 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetPhoneAlert;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.impl.FirestationDAO;
+import com.example.SafetyAlerts.dao.impl.MedicDA0;
+import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
-@Component
-public class GetPhoneAlert extends GetAll implements IGetPhoneAlert {
+public class GetPhoneAlert {
 
 
     /**
@@ -17,17 +18,16 @@ public class GetPhoneAlert extends GetAll implements IGetPhoneAlert {
      * @return
      */
 
-    private final PhoneAlertList phoneAlertList;
-    public GetPhoneAlert(PhoneAlertList phoneAlertList) {
-        this.phoneAlertList = phoneAlertList;
-    }
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
+    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
 
 
-    @Override
-    public PhoneAlertList getPhoneAlert(String station) {
+    public List<PhoneAlertUrl> getPhoneAlert(String station) {
 
-        List<Person> result = getPersonAll();
-        List<Firestation> resultFire = getFireAll();
+        List<Person> result = personDAO.getAll();
+        List<Firestation> resultFire = firestationDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
         ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
 
         resultFire.forEach(firestation -> {
@@ -48,8 +48,8 @@ public class GetPhoneAlert extends GetAll implements IGetPhoneAlert {
             }
         });
 
-        phoneAlertList.setPhoneAlertUrls(result2);
-        return phoneAlertList;
+        return result2;
     }
 
 }
+

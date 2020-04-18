@@ -1,14 +1,16 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetFlood;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.impl.FirestationDAO;
+import com.example.SafetyAlerts.dao.impl.MedicDA0;
+import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class GetFlood extends GetAll implements IGetFlood {
+public class GetFlood {
 
 
     /**
@@ -18,18 +20,18 @@ public class GetFlood extends GetAll implements IGetFlood {
      * @return
      */
 
-    private final FloodList floodList;
-    public GetFlood(FloodList floodList) {
-        this.floodList = floodList;
-    }
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
+    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
 
 
-    @Override
-    public FloodList getFlood(String station) {
+    public List<FloodUrl> getFlood(String station) {
 
-        List<Person> result = getPersonAll();
-        List<Firestation> resultFire = getFireAll();
-        ArrayList<FloodUrl> result2 = new ArrayList<>();
+        List<Person> result = personDAO.getAll();
+        List<Firestation> resultFire = firestationDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
+
+        List<FloodUrl> result2 = new ArrayList<>();
 
 
         resultFire.forEach(firestation -> {
@@ -49,7 +51,7 @@ public class GetFlood extends GetAll implements IGetFlood {
                         floodUrl.setPhone(person.getPhone());
                         floodUrl.setFirestationNumber(numStation);
 
-                        getMedAll().forEach(person2 -> {
+                        resultMedic.forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
@@ -65,8 +67,8 @@ public class GetFlood extends GetAll implements IGetFlood {
                 });
             }
         });
-        floodList.setFloodUrls((result2));
-        return floodList;
+        return result2;
     }
 
 }
+

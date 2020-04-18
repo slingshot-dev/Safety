@@ -11,16 +11,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ResourceBundle;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @SpringBootTest(classes = SafetyAlertsApplication.class)
 @AutoConfigureMockMvc
-public class RestControllerPersonEmailITTests {
-
+public class RestControllerChildAlertITTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -28,19 +25,23 @@ public class RestControllerPersonEmailITTests {
     ResourceBundle bundle = ResourceBundle.getBundle("TestResources");
 
     @Test
-    public void ReturnCommunityEmailMessage() throws Exception {
-        this.mockMvc.perform(get("/communityEmail?city=Culver"))
+    public void ReturnFirestationMessage() throws Exception {
+        this.mockMvc.perform(get("/childAlert?address=" + bundle.getString("param1")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(containsString("John")))
-                .andExpect(jsonPath("$.[0].email").value("jaboyd@email.com"));
+                .andExpect(content().string(containsString("Kendrik")))
+                .andExpect(jsonPath("$.[0].lastName").value("Stelzer"))
+                .andExpect(jsonPath("$.[0].personParFoyers.[0].firstName").value("Brian"));
     }
 
     @Test
-    public void ReturnCommunityEmailCompleteJson() throws Exception {
-        this.mockMvc.perform(get("/communityEmail?city=Culver")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().json(bundle.getString("pall")));
+    public void ReturnFirestationCompleteJson() throws Exception {
+        this.mockMvc.perform(get("/childAlert?address=" + bundle.getString("param1")))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().json(bundle.getString("child")));
     }
+
+
 
 }

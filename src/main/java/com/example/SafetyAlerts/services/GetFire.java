@@ -1,7 +1,6 @@
 package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.dao.IGetFire;
-import com.example.SafetyAlerts.dao.impl.GetAll;
+import com.example.SafetyAlerts.dao.IGetAll2;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GetFire extends GetAll implements IGetFire {
+public class GetFire {
 
     /**
      * This URL return from Adress, the folowing informations :
@@ -19,18 +18,17 @@ public class GetFire extends GetAll implements IGetFire {
      * @return
      */
 
-    private final FireList fireList;
-    public GetFire(FireList fireList) {
-        this.fireList = fireList;
-    }
+    IGetAll2<Person> personDAO = new PersonDAO();
+    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
+    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
 
 
-    @Override
-    public FireList getFire(String address) {
+    public List<FireUrl> getFire(String address) {
 
-        List<Person> result = getPersonAll();
-        List<Firestation> resultFire = getFireAll();
-        ArrayList<FireUrl> result2 = new ArrayList<>();
+        List<Person> result = personDAO.getAll();
+        List<Firestation> resultFire = firestationDAO.getAll();
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
+        List<FireUrl> result2 = new ArrayList<>();
 
 
         resultFire.forEach(firestation -> {
@@ -47,7 +45,7 @@ public class GetFire extends GetAll implements IGetFire {
                         fireUrl.setLastName(person.getLastName());
                         fireUrl.setPhone(person.getPhone());
 
-                        getMedAll().forEach(person2 -> {
+                        resultMedic.forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
@@ -64,8 +62,7 @@ public class GetFire extends GetAll implements IGetFire {
                 });
             }
         });
-        fireList.setFireUrls(result2);
-        return fireList;
+        return result2;
     }
 
 }
