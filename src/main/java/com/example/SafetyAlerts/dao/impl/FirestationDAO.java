@@ -5,12 +5,14 @@ import com.example.SafetyAlerts.modeles.Firestation;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Repository("CFirestationDAO")
 public class FirestationDAO implements IGetAll2<Firestation> {
 
     private List<Firestation> firestations = new ArrayList<>();

@@ -1,14 +1,14 @@
-package com.example.SafetyAlerts.dao.impl;
+package com.example.SafetyAlerts.services;
 
 import com.example.SafetyAlerts.dao.IGetAll2;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class GetFire {
 
     /**
@@ -18,9 +18,15 @@ public class GetFire {
      * @return
      */
 
-    IGetAll2<Person> personDAO = new PersonDAO();
-    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
-    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
+    private final IGetAll2<Person> personDAO;
+    private final IGetAll2<Firestation> firestationDAO;
+    private final IGetAll2<MedicalRecord> medicDA0;
+
+    public GetFire(IGetAll2<Person> personDAO, IGetAll2<Firestation> firestationDAO, IGetAll2<MedicalRecord> medicDA0) {
+        this.personDAO = personDAO;
+        this.firestationDAO = firestationDAO;
+        this.medicDA0 = medicDA0;
+    }
 
 
     public List<FireUrl> getFire(String address) {

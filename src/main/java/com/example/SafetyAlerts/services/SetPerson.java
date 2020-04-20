@@ -1,22 +1,27 @@
 package com.example.SafetyAlerts.services;
 
 import com.example.SafetyAlerts.dao.IGetAll2;
-import com.example.SafetyAlerts.dao.impl.FirestationDAO;
-import com.example.SafetyAlerts.dao.impl.MedicDA0;
-import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Service
 public class SetPerson {
 
 
-    IGetAll2<Person> personDAO = new PersonDAO();
-    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
-    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
+    private final IGetAll2<Person> personDAO;
+    private final IGetAll2<Firestation> firestationDAO;
+    private final IGetAll2<MedicalRecord> medicDA0;
 
     MedicalRecord medicalRecord = new MedicalRecord();
+
+    public SetPerson(IGetAll2<Person> personDAO, IGetAll2<Firestation> firestationDAO, IGetAll2<MedicalRecord> medicDA0) {
+        this.personDAO = personDAO;
+        this.firestationDAO = firestationDAO;
+        this.medicDA0 = medicDA0;
+    }
 
     public void setAddPerson(Person addPerson) {
 

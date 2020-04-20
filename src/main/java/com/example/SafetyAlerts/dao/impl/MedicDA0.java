@@ -5,12 +5,14 @@ import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Repository("CMedicDAO")
 public class MedicDA0 implements IGetAll2<MedicalRecord> {
 
 

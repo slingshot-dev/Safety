@@ -1,6 +1,7 @@
 package it.com.examples.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.SafetyAlertsApplication;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ResourceBundle;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +28,8 @@ public class RestControllerPersonEmailITTests {
     MockMvc mockMvc;
 
     ResourceBundle bundle = ResourceBundle.getBundle("TestResources");
+
+
 
     @Test
     public void ReturnCommunityEmailMessage() throws Exception {

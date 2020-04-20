@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestControllerPersonEmail {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
 
-    GetCommunityEmailInfo getCommunityEmailInfo = new GetCommunityEmailInfo();
+    private final GetCommunityEmailInfo getCommunityEmailInfo;
+
+    public RestControllerPersonEmail(GetCommunityEmailInfo getCommunityEmailInfo) {
+        this.getCommunityEmailInfo = getCommunityEmailInfo;
+    }
+
 
     @GetMapping
     public Object getEmail(@RequestParam("city") String city) throws Exception {
         if (city.isEmpty()) {
-            logger.error("Parameter City is necessary");
+            logger.error("Parameter City is missing");
             throw new Exception("Parameter : city value, is necessary");
         } else {
             logger.info("Get Emails OK");

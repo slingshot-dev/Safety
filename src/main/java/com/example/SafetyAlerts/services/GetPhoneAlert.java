@@ -1,13 +1,12 @@
 package com.example.SafetyAlerts.services;
 
 import com.example.SafetyAlerts.dao.IGetAll2;
-import com.example.SafetyAlerts.dao.impl.FirestationDAO;
-import com.example.SafetyAlerts.dao.impl.MedicDA0;
-import com.example.SafetyAlerts.dao.impl.PersonDAO;
 import com.example.SafetyAlerts.modeles.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@Service
 public class GetPhoneAlert {
 
 
@@ -18,16 +17,19 @@ public class GetPhoneAlert {
      * @return
      */
 
-    IGetAll2<Person> personDAO = new PersonDAO();
-    IGetAll2<MedicalRecord> medicDA0 = new MedicDA0();
-    IGetAll2<Firestation> firestationDAO = new FirestationDAO();
+    private final IGetAll2<Person> personDAO;
+    private final IGetAll2<Firestation> firestationDAO;
+
+    public GetPhoneAlert(IGetAll2<Person> personDAO, IGetAll2<Firestation> firestationDAO, IGetAll2<MedicalRecord> medicDA0) {
+        this.personDAO = personDAO;
+        this.firestationDAO = firestationDAO;
+    }
 
 
     public List<PhoneAlertUrl> getPhoneAlert(String station) {
 
         List<Person> result = personDAO.getAll();
         List<Firestation> resultFire = firestationDAO.getAll();
-        List<MedicalRecord> resultMedic = medicDA0.getAll();
         ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
 
         resultFire.forEach(firestation -> {

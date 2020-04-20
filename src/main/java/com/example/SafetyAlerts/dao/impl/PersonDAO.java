@@ -4,12 +4,15 @@ import com.example.SafetyAlerts.dao.IGetAll2;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Repository("CPersonDAO")
 public class PersonDAO implements IGetAll2<Person> {
 
     private List<Person> persons = new ArrayList<>();
