@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/flood")
 public class RestControllerFlood {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-
     private final GetFlood getFlood;
+
     public RestControllerFlood(GetFlood getFlood) {
         this.getFlood = getFlood;
     }

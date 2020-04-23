@@ -9,22 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/** Classe de creation de la liste FirestationUrl. This URL return from Station number, the folowing informations :
+ * FirstName, Lastname, address, phone Number, age, Medicals records, Station Number.
+ * A count of adults en Childrens in this area
+ */
+
 @Service
 public class GetFirestation {
-
-    /**
-     * This URL return from Station number, the folowing informations :
-     * FirstName, Lastname, address, phone Number, age, Medicals records, Station Number.
-     * A count of adults en Childrens in this area
-     *
-     * @return
-     */
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<Firestation> firestationDAO;
     private final IGetAll2<MedicalRecord> medicDA0;
-
-
 
     FirestationUrl firestationUrl = new FirestationUrl();
 
@@ -33,6 +28,12 @@ public class GetFirestation {
         this.firestationDAO = firestationDAO;
         this.medicDA0 = medicDA0;
     }
+
+    /**
+     *
+     * @param station : Parametre de numero de Station
+     * @return : Retourne la liste FirestationUrl
+     */
 
     public FirestationUrl getFirestation(String station) {
 
@@ -70,7 +71,7 @@ public class GetFirestation {
                                 String age = GetAge.getAge(birthDate);
 
                                 int ageInt = Integer.parseInt(age);
-                                if (ageInt <= 18){
+                                if (ageInt <= 18) {
                                     ageEnfant.getAndIncrement();
                                 } else {
                                     ageAdult.getAndIncrement();

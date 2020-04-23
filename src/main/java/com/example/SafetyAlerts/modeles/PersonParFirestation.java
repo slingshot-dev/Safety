@@ -1,7 +1,5 @@
 package com.example.SafetyAlerts.modeles;
 
-import org.springframework.stereotype.Component;
-
 public class PersonParFirestation {
 
     private String firstName;

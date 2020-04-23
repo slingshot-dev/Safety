@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/fire")
 public class RestControllerFire {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-
     public final GetFire getFire;
 
     public RestControllerFire(GetFire getFire) {

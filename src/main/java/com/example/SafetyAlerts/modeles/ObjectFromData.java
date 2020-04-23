@@ -32,13 +32,5 @@ public class ObjectFromData {
         this.medicalrecords = medicalrecords;
     }
 
-    @Override
-    public String toString() {
-        return "ObjectFromData{" +
-                "persons=" + persons +
-                ", firestations=" + firestations +
-                ", medicalrecords=" + medicalrecords +
-                '}';
-    }
 }
 

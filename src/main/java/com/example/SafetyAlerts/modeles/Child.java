@@ -1,11 +1,10 @@
 package com.example.SafetyAlerts.modeles;
 
-public class EmailUrl {
+public class Child {
 
     private String firstName;
     private String lastName;
-    private String email;
-
+    private String age;
 
     public String getFirstName() {
         return firstName;
@@ -23,11 +22,11 @@ public class EmailUrl {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAge() {
+        return age;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAge(String age) {
+        this.age = age;
     }
 }

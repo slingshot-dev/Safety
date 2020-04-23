@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/firestation")
 public class RestControllerFirestation {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-
     private final GetFirestation getFirestation;
+
     public RestControllerFirestation(GetFirestation getFirestation) {
         this.getFirestation = getFirestation;
     }

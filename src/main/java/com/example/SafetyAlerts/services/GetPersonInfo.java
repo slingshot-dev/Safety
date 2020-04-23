@@ -7,19 +7,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/** Classe de creation de la liste PersonUrl :  This URL return from Firstname and lastname, tyhe folowing informations :
+ * Lastname, adresse, age, Email, Medicals record
+ */
+
 @Service
 public class GetPersonInfo {
 
 
     /**
-     * This URL return from Firstname and lastname, tyhe folowing informations :
-     * Lastname, adresse, age, Email, Medicals records.
-     *
-     * @param firstname
-     * @param lastname
-     * @return
+     * @param firstname : Parametre Prenom de la Personne issue du controller
+     * @param lastname : Parametre Nom de la personne issue du controller
+     * @return : Retourne la Liste PersonUrl
      */
-
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<MedicalRecord> medicDA0;

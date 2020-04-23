@@ -13,14 +13,22 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/childAlert")
 public class RestControllerChildAlert {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
 
-    private final GetChildAlert getChildAlert;
+    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+/*    private final GetChildAlert getChildAlert;*/
+private final GetChildAlert getChildAlert;
 
     public RestControllerChildAlert(GetChildAlert getChildAlert) {
         this.getChildAlert = getChildAlert;
     }
 
+
+    /**
+     *
+     * @param address
+     * @return
+     * @throws Exception
+     */
 
     @GetMapping
     public ArrayList<ChildAlertUrl> getChildAlert(String address) throws Exception {
@@ -32,8 +40,5 @@ public class RestControllerChildAlert {
             logger.info("Get Childs from address OK");
             return getChildAlert.getChildAlert(address);
         }
-
-/*        return getChildAlert.getChildAlert(address);*/
     }
-
 }

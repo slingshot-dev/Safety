@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de Modification de l'Objet Firestation
+ */
+
 @Service
 public class SetFirestation {
 
@@ -18,6 +22,11 @@ public class SetFirestation {
     }
 
 
+    /** Methode d'ajout d'une Firestation a la liste Firestations
+     *
+     * @param addFirestation : Parametres d'ajout d'une Firestation a la Liste Firestations
+     */
+
     public void setAddFirestation(Firestation addFirestation) {
 
 
@@ -26,6 +35,11 @@ public class SetFirestation {
         firestationDAO.save(addFirestation);
 
     }
+
+    /** Methode de modification d'une Firestation a la liste Firestations
+     *
+     * @param UpdateFirestation : Parametres de modification d'une Firestation a la Liste Firestations
+     */
 
     public void setUpdateFirestation(Firestation UpdateFirestation) {
 
@@ -58,6 +72,10 @@ public class SetFirestation {
 
     }
 
+    /** Methode de suppression d'une Firestation a la liste Firestations
+     *
+     * @param removeFirestation : Parametres de suppression d'une Firestation a la Liste Firestations
+     */
 
     public void setRemoveFirestation(Firestation removeFirestation) {
 

@@ -1,16 +1,22 @@
 package com.example.SafetyAlerts;
 
-import com.example.SafetyAlerts.modeles.ObjectFromData;
-import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.File;
-import java.io.IOException;
+/**
+ * 	 SafetyAlerts : Application d'envoie d'informations aux services d'urgence.
+ * 	 @author : C. Guillet
+ * 	 @version : 1.0 - Avril 2020
+ */
+
+
 
 @SpringBootApplication
 public class SafetyAlertsApplication {
+
+	/**
+	 * @param args
+	 */
 
 	public static void main(String[] args) {
 		SpringApplication.run(SafetyAlertsApplication.class, args);

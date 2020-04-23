@@ -4,48 +4,44 @@ import com.example.SafetyAlerts.dao.IGetAll2;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
 
 @Repository("CPersonDAO")
 public class PersonDAO implements IGetAll2<Person> {
 
     private List<Person> persons = new ArrayList<>();
 
-/*    public PersonDAO() {
+    public PersonDAO() {
         persons.add(new Person());
-
-    }*/
-
-
-    @Override
-    public Optional<Person> get(long id) {
-        return Optional.ofNullable(persons.get((int) id));
     }
+
+    @Autowired
+    SafetyAlertsMapper safetyAlertsMapper;
+
 
     @Override
     public List<Person> getAll() {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
-        persons =  objectsFromData.getPersons();
-        return persons;
+
+        ObjectFromData objectsFromData = safetyAlertsMapper.read();
+        return objectsFromData.getPersons();
     }
 
     @Override
     public void save(Person person) {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+
+        ObjectFromData objectsFromData = safetyAlertsMapper.read();
         objectsFromData.getPersons().add(person);
         SafetyAlertsMapper.write(objectsFromData);
-
     }
 
     @Override
     public void update(Person person, int index) {
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+
+        ObjectFromData objectsFromData = safetyAlertsMapper.read();
         persons = objectsFromData.getPersons();
         persons.get(index).setFirstName(person.getFirstName());
         persons.get(index).setLastName(person.getLastName());
@@ -63,9 +59,8 @@ public class PersonDAO implements IGetAll2<Person> {
     @Override
     public void delete(List<Person> person) {
 
-        ObjectFromData objectsFromData = SafetyAlertsMapper.read();
+        ObjectFromData objectsFromData = safetyAlertsMapper.read();
         objectsFromData.setPersons(person);
         SafetyAlertsMapper.write(objectsFromData);
-
     }
 }

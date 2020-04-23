@@ -6,16 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/** Classe de creation de la liste PhoneAlertUrl :  This URL return from FireStation, the folowing informations : Firstname, Lastname, phone Number.
+ */
+
 @Service
 public class GetPhoneAlert {
-
-
-    /**
-     * This URL return from FireStation, the folowing informations :
-     * Firstname, Lastname, phone Number.
-     *
-     * @return
-     */
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<Firestation> firestationDAO;
@@ -25,6 +20,10 @@ public class GetPhoneAlert {
         this.firestationDAO = firestationDAO;
     }
 
+    /**
+     * @param station : parametre du numero de Station
+     * @return : Retourne la liste PhonealertUrl.
+     */
 
     public List<PhoneAlertUrl> getPhoneAlert(String station) {
 
@@ -49,9 +48,7 @@ public class GetPhoneAlert {
                 });
             }
         });
-
         return result2;
     }
-
 }
 

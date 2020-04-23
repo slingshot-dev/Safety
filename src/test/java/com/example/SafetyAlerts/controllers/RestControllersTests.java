@@ -293,7 +293,7 @@ public class RestControllersTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("david")))
-                .andExpect(jsonPath("$.[0].lastName").value("dupont"));
+                .andExpect(jsonPath("$.[0].enfantFoyer.[0].lastName").value("dupont"));
     }
 
     @Test

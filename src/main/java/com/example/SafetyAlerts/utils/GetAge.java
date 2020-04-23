@@ -7,6 +7,12 @@ import java.util.Locale;
 
 public class GetAge {
 
+    /** Convertie une date en Age
+     *
+     * @param birthDate : Date de naissance de la personne
+     * @return : Age de la Personne.
+     */
+
     public static String getAge(String birthDate) {
         int calculAge = 0;
 

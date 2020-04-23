@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de modification de l'Objet Person
+ */
+
 @Service
 public class SetPerson {
-
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<Firestation> firestationDAO;
@@ -23,13 +26,17 @@ public class SetPerson {
         this.medicDA0 = medicDA0;
     }
 
+    /** Methode d'ajout d'une Personne dans la liste de Personnes
+     *
+     * @param addPerson : parametres issues du controller. Personne a ajouter
+     */
+
     public void setAddPerson(Person addPerson) {
 
         Firestation firestation = new Firestation();
 
         // Ajout d'un objet complet(une personne) a la Liste de Person.
         personDAO.save(addPerson);
-
 
         // Ajout des informations a Firestation en fonction de la Personne ajoutée
         String address = addPerson.getAddress();
@@ -48,13 +55,17 @@ public class SetPerson {
 
     }
 
+    /** Methode de mise a jour d'informations d'une Personne dans la liste de Personnes
+     *
+     * @param putPerson : parametres issues du controller. Informations d'une Personne a modifier
+     */
+
     public void setUpdatePerson(Person putPerson) {
 
         List<Person> resultPerson = personDAO.getAll();
         List<Firestation> resultFire = firestationDAO.getAll();
         String firstname = putPerson.getFirstName();
         String lastname = putPerson.getLastName();
-
 
         resultPerson.forEach(person -> {
             if (person.getLastName().contentEquals(lastname) && person.getFirstName().contentEquals(firstname)) {
@@ -80,6 +91,10 @@ public class SetPerson {
 
     }
 
+    /** Methode de suppression d'une personne dans la liste de Personnes
+     *
+     * @param removePerson : parametres issues du controller. Personne a supprimer.
+     */
 
     public void setRemovePerson(Person removePerson) {
 
@@ -93,12 +108,9 @@ public class SetPerson {
         List<Person> filteredList = resultPerson.stream().filter(person4 -> !person4.getFirstName().contentEquals(firstname) && !person4.getFirstName().contentEquals(lastname)).collect(Collectors.toList());
         personDAO.delete(filteredList);
 
-
         // Suppression des Records Medicaux de la personne supprimée de la List Person.
         List<MedicalRecord> filteredListMed = resultMedic.stream().filter(person5 -> !person5.getFirstName().contentEquals(firstname) && !person5.getFirstName().contentEquals(lastname)).collect(Collectors.toList());
         medicDA0.delete(filteredListMed);
-
     }
-
 }
 

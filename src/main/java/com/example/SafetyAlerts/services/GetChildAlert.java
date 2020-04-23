@@ -9,59 +9,77 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de creation de la liste ChildAlertUrl.
+ * This URL return from Address, the folowing informations :
+ * Childs Informations and personns from the same Adress.
+ * It count alse numbers of Adults and Childs
+ */
+
 @Service
 public class GetChildAlert {
 
     private final IGetAll2<MedicalRecord> medicDA0;
     private final IGetAll2<Person> personDAO;
+    private String Age;
+
     public GetChildAlert(IGetAll2<Person> personDAO, IGetAll2<MedicalRecord> medicDA0) {
         this.personDAO = personDAO;
         this.medicDA0 = medicDA0;
     }
 
+    /**
+     *
+     * @param address : Adress de Personnes
+     * @return : Retourne La liste ChildAlertUrl.
+     */
 
     public ArrayList<ChildAlertUrl> getChildAlert(String address) {
         List<Person> result = personDAO.getAll();
-        List<MedicalRecord> resultMedic = medicDA0.getAll();
         ArrayList<ChildAlertUrl> result3 = new ArrayList<>();
+        ArrayList<Child> resultChild = new ArrayList<>();
 
 
         // Liste de personnes a l'adresse demandée
         List<Person> resultPersonAddress = result.stream().filter(child1 -> (child1.getAddress().contentEquals(address))).collect(Collectors.toList());
 
-        // pour chaque personne recuperation du prenom et nom
         resultPersonAddress.forEach(person -> {
-            if (person.getAddress().contentEquals(address)) {
-                String firstname = person.getFirstName();
-                String lastname = person.getLastName();
+              Age = GetAge.getAge(getBirthdate(person.getFirstName(), person.getLastName()).get(0).getBirthdate());
+            int ageInt = Integer.parseInt(Age);
+            if (ageInt <= 18) {
+                Child child = new Child();
+                ChildAlertUrl childAlertUrl = new ChildAlertUrl();
 
-                // extraction de la personne dans Medical Record et verification de l'age
-                List<MedicalRecord> resultPersonByName = resultMedic.stream()
-                        .filter(person1 ->
-                                (person1.getFirstName().contentEquals(firstname) &&
-                                        person1.getLastName().contentEquals(lastname)))
-                        .collect(Collectors.toList());
-                String birthDate = resultPersonByName.get(0).getBirthdate();
-                String age = GetAge.getAge(birthDate);
-                int ageInt = Integer.parseInt(age);
+                child.setFirstName(person.getFirstName());
+                child.setLastName(person.getLastName());
+                child.setAge(Age);
+                resultChild.add(child);
 
-                // Si 18 ans ou moins on ajoute l'enfant
-                if (ageInt <= 18) {
+                List<Person> resultPersonParFoyer = resultPersonAddress.stream().filter(adults -> (adults.getLastName().contentEquals(person.getLastName()) && !adults.getFirstName().contentEquals(person.getFirstName()))).collect(Collectors.toList());
+                childAlertUrl.setPersonFoyer(resultPersonParFoyer);
+                childAlertUrl.setEnfantFoyer(resultChild);
 
-                    ChildAlertUrl childAlertUrl = new ChildAlertUrl();
-                    childAlertUrl.setFirstName(resultPersonByName.get(0).getFirstName());
-                    childAlertUrl.setLastName(resultPersonByName.get(0).getLastName());
-                    childAlertUrl.setAge(age);
-
-                    // recuperation de la liste initale que l'on ajoute au foyer sans l'enfant.
-                    List<Person> resultPersonParFoyer = resultPersonAddress.stream().filter(adults -> (adults.getLastName().contentEquals(lastname) && !adults.getFirstName().contentEquals(firstname))).collect(Collectors.toList());
-                    childAlertUrl.setPersonParFoyers(resultPersonParFoyer);
-
-                    result3.add(childAlertUrl);
-                }
+                result3.add(childAlertUrl);
             }
-        });
-        return result3;
+    });
+        return removeDoublon(result3);
     }
+
+
+
+
+    public List<MedicalRecord> getBirthdate(String firstName, String lasName) {
+        List<MedicalRecord> resultMedic = medicDA0.getAll();
+        return resultMedic.stream().filter(medic -> (medic.getFirstName().contentEquals(firstName) && medic.getLastName().contentEquals(lasName))).collect(Collectors.toList());
+    }
+
+    public ArrayList<ChildAlertUrl> removeDoublon(ArrayList<ChildAlertUrl> List){
+        while (List.size()>1){
+            List.remove(1);
+        }
+        return List;
+    }
+
 }
+
 

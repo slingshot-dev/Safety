@@ -1,43 +1,25 @@
 package com.example.SafetyAlerts.modeles;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChildAlertUrl {
-    private String firstName;
-    private String lastName;
-    private String age;
-    List<Person> personParFoyers;
 
-    public String getFirstName() {
-        return firstName;
+    List<Child> enfantFoyer;
+    List<Person> personFoyer;
+
+    public List<Child> getEnfantFoyer() {
+        return enfantFoyer;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEnfantFoyer(List<Child> enfantFoyer) {
+        this.enfantFoyer = enfantFoyer;
     }
 
-    public String getLastName() {
-        return lastName;
+    public List<Person> getPersonFoyer() {
+        return personFoyer;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public List<Person> getPersonParFoyers() {
-        return personParFoyers;
-    }
-
-    public void setPersonParFoyers(List<Person> personParFoyers) {
-        this.personParFoyers = personParFoyers;
+    public void setPersonFoyer(List<Person> personFoyer) {
+        this.personFoyer = personFoyer;
     }
 }

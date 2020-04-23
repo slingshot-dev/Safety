@@ -8,15 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de creation de la liste FirestationUrl.
+ * This URL return from Adress, the folowing informations :
+ * FirstName, Lastname, phone Number, age, Medicals records, Station Number.
+ */
+
 @Service
 public class GetFire {
-
-    /**
-     * This URL return from Adress, the folowing informations :
-     * FirstName, Lastname, phone Number, age, Medicals records, Station Number.
-     *
-     * @return
-     */
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<Firestation> firestationDAO;
@@ -28,6 +27,11 @@ public class GetFire {
         this.medicDA0 = medicDA0;
     }
 
+    /**
+     *
+     * @param address : Parametre adresse d'une Firestation
+     * @return : Retourne la Liste FireUrl
+     */
 
     public List<FireUrl> getFire(String address) {
 

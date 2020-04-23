@@ -3,21 +3,16 @@ package com.example.SafetyAlerts.services;
 import com.example.SafetyAlerts.dao.IGetAll2;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/** Classe de creation de la liste FloodUrl :  This URL return from FireStation, the folowing informations :
+ * Lastname, phone Number, age, Email, Medicals records.
+ */
+
 @Service
 public class GetFlood {
-
-
-    /**
-     * This URL return from FireStation, the folowing informations :
-     * Lastname, phone Number, age, Email, Medicals records.
-     *
-     * @return
-     */
 
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<Firestation> firestationDAO;
@@ -29,6 +24,10 @@ public class GetFlood {
         this.medicDA0 = medicDA0;
     }
 
+    /**
+     * @param station : Parametre du numero de Station
+     * @return : Retourne la Liste FloodUrl
+     */
 
     public List<FloodUrl> getFlood(String station) {
 

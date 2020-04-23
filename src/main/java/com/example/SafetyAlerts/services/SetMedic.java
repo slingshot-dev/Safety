@@ -8,13 +8,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de Modification de l'Objet MediclaRecords
+ */
+
 @Service
 public class SetMedic {
 
-
     private final IGetAll2<Person> personDAO;
     private final IGetAll2<MedicalRecord> medicDA0;
-
 
     Person newPerson = new Person();
 
@@ -23,8 +25,12 @@ public class SetMedic {
         this.medicDA0 = medicDA0;
     }
 
-    public void setAddMedic(MedicalRecord addMedic) {
+    /** Methode d'ajout d'un dossier Medical a la liste MedicalRecords
+     *
+     * @param addMedic : Parametre d'ajout d'un dossier Medical a la Liste Medicalrecords
+     */
 
+    public void setAddMedic(MedicalRecord addMedic) {
 
         // Ajout d'un objet complet(un dossier Medical) a la Liste de MedicalRecord.
         medicDA0.save(addMedic);
@@ -43,15 +49,18 @@ public class SetMedic {
         personDAO.save(newPerson);
     }
 
-    public void setUpdateMedic(MedicalRecord UpdateMedic) {
+    /** Methode de modification d'un dossier Medical a la liste MedicalRecords
+     *
+     * @param UpdateMedic : Parametres issues du Controller, de modification d'un dossier Medical d'une personne.
+     */
 
+    public void setUpdateMedic(MedicalRecord UpdateMedic) {
 
         List<MedicalRecord> resultMedic = medicDA0.getAll();
 
-
         // Modification d'un dossier medical en fonction nom et prenom
         resultMedic.forEach(medic -> {
-            if (medic.getFirstName().contentEquals(UpdateMedic.getFirstName())&&medic.getLastName().contentEquals(UpdateMedic.getLastName())) {
+            if (medic.getFirstName().contentEquals(UpdateMedic.getFirstName()) && medic.getLastName().contentEquals(UpdateMedic.getLastName())) {
                 int index = resultMedic.indexOf(medic);
 
                 // mise a jour de MedicalRecord
@@ -59,6 +68,11 @@ public class SetMedic {
             }
         });
     }
+
+    /** Methode de suppression d'un dossier Medical a la liste MedicalRecords
+     *
+     * @param removeMedic : Parametres issues du Controller, de suppression d'un dossier Medical d'une personne.
+     */
 
     public void setRemoveMedic(MedicalRecord removeMedic) {
 
@@ -85,7 +99,7 @@ public class SetMedic {
                         && person1.getEmail().contentEquals("TbD"))
                 .collect(Collectors.toList());
 
-        if (filteredListPerson.isEmpty()){
+        if (filteredListPerson.isEmpty()) {
 
             // Ajout d'un dossier Medical vide en fonction de la Personne
             MedicalRecord medicalRecord = new MedicalRecord();
@@ -96,8 +110,7 @@ public class SetMedic {
             medicalRecord.setMedications(null);
             medicalRecord.setAllergies(null);
             medicDA0.save(medicalRecord);
-        }
-        else {
+        } else {
 
             List<Person> filteredListPerson2 = resultPerson.stream()
                     .filter(person2 -> !person2.getFirstName().contentEquals(firstname) && !person2.getFirstName().contentEquals(lastname))

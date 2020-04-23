@@ -41,8 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-public class RestControllerPersonEmailTests {
-    ResourceBundle bundle = ResourceBundle.getBundle("TestResources");
+public class LimitsTests {
 
     @Autowired
     MockMvc mockMvc;
@@ -57,28 +56,6 @@ public class RestControllerPersonEmailTests {
     public void contextLoads() {
         assertThat(restControllerPersonEmail).isNotNull();
         }
-
-    @Test
-/*    @Disabled*/
-    public void ReturnCommunityEmailMessage() throws Exception {
-        Person persontest = new Person();
-        List<Person> personTestList = new ArrayList<>();
-        persontest.setFirstName("cyrille");
-        persontest.setLastName("guillet");
-        persontest.setAddress("7 rue de talhouet");
-        persontest.setZip(Long.valueOf("91130"));
-        persontest.setCity("Ris-Orangis");
-        persontest.setEmail("toto@outlook.fr");
-        persontest.setPhone("0123456789");
-        personTestList.add(persontest);
-
-        when(personDAO.getAll()).thenReturn(personTestList);
-        this.mockMvc.perform(get("/communityEmail?city=Ris-Orangis"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(containsString("toto@outlook.fr")));
-    }
 
     @Test
     public void BadUrlRequest() throws Exception {
