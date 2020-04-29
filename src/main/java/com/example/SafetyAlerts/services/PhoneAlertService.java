@@ -1,23 +1,22 @@
 package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
 import com.example.SafetyAlerts.modeles.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-/** Classe de creation de la liste PhoneAlertUrl :  This URL return from FireStation, the folowing informations : Firstname, Lastname, phone Number.
+/** Classe de creation de la liste PhoneAlertUrl :
+ * Cette url retourne une liste des numéros de téléphone des résidents desservis par la caserne de
+ * pompiers. Nous l'utilisons pour envoyer des messages texte d'urgence à des foyers spécifiques.
  */
 
 @Service
-public class GetPhoneAlert {
+public class PhoneAlertService extends CommonsServices {
 
-    private final IGetAll2<Person> personDAO;
-    private final IGetAll2<Firestation> firestationDAO;
 
-    public GetPhoneAlert(IGetAll2<Person> personDAO, IGetAll2<Firestation> firestationDAO, IGetAll2<MedicalRecord> medicDA0) {
-        this.personDAO = personDAO;
-        this.firestationDAO = firestationDAO;
+    public PhoneAlertService(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
+        super(personDAO, firestationDAO, medicDA0);
     }
 
     /**
@@ -27,15 +26,13 @@ public class GetPhoneAlert {
 
     public List<PhoneAlertUrl> getPhoneAlert(String station) {
 
-        List<Person> result = personDAO.getAll();
-        List<Firestation> resultFire = firestationDAO.getAll();
         ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
 
-        resultFire.forEach(firestation -> {
+        getFirestationAll().forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
                 String adress = firestation.getAddress();
 
-                result.forEach(person -> {
+                getPersonAll().forEach(person -> {
                     if (person.getAddress().contentEquals(adress)) {
 
                         PhoneAlertUrl phoneAlertUrl = new PhoneAlertUrl();

@@ -1,27 +1,24 @@
 package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
 import com.example.SafetyAlerts.modeles.*;
 import com.example.SafetyAlerts.utils.GetAge;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-/** Classe de creation de la liste FloodUrl :  This URL return from FireStation, the folowing informations :
- * Lastname, phone Number, age, Email, Medicals records.
+/** Classe de creation de la liste FloodUrl :
+ * Cette url retourne une liste de tous les foyers desservis par la caserne. Cette liste regroupe les
+ * personnes par adresse. Elle inclue le nom, le numéro de téléphone et l'âge des habitants, et
+ * fais figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
  */
 
 @Service
-public class GetFlood {
+public class FloodService extends CommonsServices {
 
-    private final IGetAll2<Person> personDAO;
-    private final IGetAll2<Firestation> firestationDAO;
-    private final IGetAll2<MedicalRecord> medicDA0;
 
-    public GetFlood(IGetAll2<Person> personDAO, IGetAll2<Firestation> firestationDAO, IGetAll2<MedicalRecord> medicDA0) {
-        this.personDAO = personDAO;
-        this.firestationDAO = firestationDAO;
-        this.medicDA0 = medicDA0;
+    public FloodService(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
+        super(personDAO, firestationDAO, medicDA0);
     }
 
     /**
@@ -31,19 +28,15 @@ public class GetFlood {
 
     public List<FloodUrl> getFlood(String station) {
 
-        List<Person> result = personDAO.getAll();
-        List<Firestation> resultFire = firestationDAO.getAll();
-        List<MedicalRecord> resultMedic = medicDA0.getAll();
-
         List<FloodUrl> result2 = new ArrayList<>();
 
 
-        resultFire.forEach(firestation -> {
+        getFirestationAll().forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
                 String adress = firestation.getAddress();
                 String numStation = firestation.getStation();
 
-                result.forEach(person -> {
+                getPersonAll().forEach(person -> {
                     if (person.getAddress().contentEquals(adress)) {
                         String firstname = person.getFirstName();
                         String lastname = person.getLastName();
@@ -55,7 +48,7 @@ public class GetFlood {
                         floodUrl.setPhone(person.getPhone());
                         floodUrl.setFirestationNumber(numStation);
 
-                        resultMedic.forEach(person2 -> {
+                        getMedicAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);

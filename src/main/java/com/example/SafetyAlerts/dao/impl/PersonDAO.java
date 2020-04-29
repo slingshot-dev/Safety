@@ -1,6 +1,6 @@
 package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.modeles.Person;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository("CPersonDAO")
-public class PersonDAO implements IGetAll2<Person> {
+public class PersonDAO implements IGetAll<Person> {
 
     private List<Person> persons = new ArrayList<>();
 

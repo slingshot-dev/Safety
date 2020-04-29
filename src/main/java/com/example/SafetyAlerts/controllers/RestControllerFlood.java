@@ -2,7 +2,7 @@ package com.example.SafetyAlerts.controllers;
 
 
 import com.example.SafetyAlerts.modeles.FloodUrl;
-import com.example.SafetyAlerts.services.GetFlood;
+import com.example.SafetyAlerts.services.FloodService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/flood")
 public class RestControllerFlood {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final GetFlood getFlood;
+    private final FloodService floodService;
 
-    public RestControllerFlood(GetFlood getFlood) {
-        this.getFlood = getFlood;
+    public RestControllerFlood(FloodService floodService) {
+        this.floodService = floodService;
     }
 
 
@@ -30,7 +30,7 @@ public class RestControllerFlood {
             throw new Exception("Parameter : Station value, is necessary");
         } else {
             logger.info("Get Persons from Station OK");
-            return getFlood.getFlood(station);
+            return floodService.getFlood(station);
         }
     }
 }

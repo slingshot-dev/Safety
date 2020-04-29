@@ -2,10 +2,9 @@ package com.example.SafetyAlerts.controllers;
 
 
 import com.example.SafetyAlerts.modeles.PersonUrl;
-import com.example.SafetyAlerts.services.GetPersonInfo;
+import com.example.SafetyAlerts.services.PersonInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.List;
 @RequestMapping("/personinfo")
 public class RestControllerPersonsInfo {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final GetPersonInfo getPersonInfo;
+    private final PersonInfoService personInfoService;
 
-    public RestControllerPersonsInfo(GetPersonInfo getPersonInfo) {
-        this.getPersonInfo = getPersonInfo;
+    public RestControllerPersonsInfo(PersonInfoService personInfoService) {
+        this.personInfoService = personInfoService;
     }
 
 
@@ -30,7 +29,7 @@ public class RestControllerPersonsInfo {
             throw new Exception("Parameters : Lastname and Firstname values, are necessary");
         } else {
             logger.info("Get Persons OK");
-            return getPersonInfo.getPersonFindByName(firstname, lastname);
+            return personInfoService.getPersonFindByName(firstname, lastname);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.SafetyAlerts.services;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
+import com.example.SafetyAlerts.modeles.Firestation;
 import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.Person;
 import org.springframework.stereotype.Service;
@@ -10,20 +11,24 @@ import java.util.stream.Collectors;
 
 /**
  * Classe de Modification de l'Objet MediclaRecords
+ * Cet endpoint permet d’effectuer les actions suivantes via Post/Put/Delete HTTP :
+ * ● ajouter un dossier médical ;
+ * ● mettre à jour un dossier médical existant (comme évoqué précédemment, supposer que le
+ * prénom et le nom de famille ne changent pas) ;
+ * ● supprimer un dossier médical (utilisez une combinaison de prénom et de nom comme
+ * identificateur unique)
  */
 
 @Service
-public class SetMedic {
+public class MedicService extends CommonsServices {
 
-    private final IGetAll2<Person> personDAO;
-    private final IGetAll2<MedicalRecord> medicDA0;
 
     Person newPerson = new Person();
 
-    public SetMedic(IGetAll2<Person> personDAO, IGetAll2<MedicalRecord> medicDA0) {
-        this.personDAO = personDAO;
-        this.medicDA0 = medicDA0;
+    public MedicService(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
+        super(personDAO, firestationDAO, medicDA0);
     }
+
 
     /** Methode d'ajout d'un dossier Medical a la liste MedicalRecords
      *
@@ -33,7 +38,7 @@ public class SetMedic {
     public void setAddMedic(MedicalRecord addMedic) {
 
         // Ajout d'un objet complet(un dossier Medical) a la Liste de MedicalRecord.
-        medicDA0.save(addMedic);
+        medicSave(addMedic);
 
         // Ajout des informations a Personne en fonction du nouveau dossier Medical
         String firstname = addMedic.getFirstName();
@@ -46,7 +51,7 @@ public class SetMedic {
         newPerson.setPhone("TbD");
         newPerson.setEmail("TbD");
 
-        personDAO.save(newPerson);
+        personSave(newPerson);
     }
 
     /** Methode de modification d'un dossier Medical a la liste MedicalRecords
@@ -56,7 +61,7 @@ public class SetMedic {
 
     public void setUpdateMedic(MedicalRecord UpdateMedic) {
 
-        List<MedicalRecord> resultMedic = medicDA0.getAll();
+        List<MedicalRecord> resultMedic = getMedicAll();
 
         // Modification d'un dossier medical en fonction nom et prenom
         resultMedic.forEach(medic -> {
@@ -64,7 +69,7 @@ public class SetMedic {
                 int index = resultMedic.indexOf(medic);
 
                 // mise a jour de MedicalRecord
-                medicDA0.update(UpdateMedic, index);
+                medicUpdate(UpdateMedic, index);
             }
         });
     }
@@ -76,20 +81,17 @@ public class SetMedic {
 
     public void setRemoveMedic(MedicalRecord removeMedic) {
 
-        List<Person> resultPerson = personDAO.getAll();
-        List<MedicalRecord> resultMedic = medicDA0.getAll();
-
         String firstname = removeMedic.getFirstName();
         String lastname = removeMedic.getLastName();
 
         // Suppression d'un dossier Medical dans MedicalRecord
-        List<MedicalRecord> filteredListMedic = resultMedic.stream().filter(medic1 -> !medic1.getFirstName().contentEquals(firstname) && !medic1.getFirstName().contentEquals(lastname)).collect(Collectors.toList());
-        medicDA0.delete(filteredListMedic);
+        List<MedicalRecord> filteredListMedic = getMedicAll().stream().filter(medic1 -> !medic1.getFirstName().contentEquals(firstname) && !medic1.getFirstName().contentEquals(lastname)).collect(Collectors.toList());
+        medicRemove(filteredListMedic);
 
         // Suppression de la personne dans Person si dossier Medical supprimé et si seulement si Personne existante a des informations vides.
         // Dans le cas contraire recreer dossier Medical vide
 
-        List<Person> filteredListPerson = resultPerson.stream()
+        List<Person> filteredListPerson = getPersonAll().stream()
                 .filter(person1 -> person1
                         .getFirstName().contentEquals(firstname)
                         && person1.getLastName().contentEquals(lastname)
@@ -109,14 +111,14 @@ public class SetMedic {
             medicalRecord.setBirthdate("TbD");
             medicalRecord.setMedications(null);
             medicalRecord.setAllergies(null);
-            medicDA0.save(medicalRecord);
+            medicSave(medicalRecord);
         } else {
 
-            List<Person> filteredListPerson2 = resultPerson.stream()
+            List<Person> filteredListPerson2 = getPersonAll().stream()
                     .filter(person2 -> !person2.getFirstName().contentEquals(firstname) && !person2.getFirstName().contentEquals(lastname))
                     .collect(Collectors.toList());
 
-            personDAO.delete(filteredListPerson2);
+            personRemove(filteredListPerson2);
 
         }
     }

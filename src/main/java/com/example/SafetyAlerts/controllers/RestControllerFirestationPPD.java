@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.services.SetFirestation;
+import com.example.SafetyAlerts.services.FirestationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/firestation")
 public class RestControllerFirestationPPD {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final SetFirestation setFirestation;
+    private final FirestationService setFirestation;
 
-    public RestControllerFirestationPPD(SetFirestation setFirestation) {
+    public RestControllerFirestationPPD(FirestationService setFirestation) {
         this.setFirestation = setFirestation;
     }
 

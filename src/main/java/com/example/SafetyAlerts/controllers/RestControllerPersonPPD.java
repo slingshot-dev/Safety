@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.modeles.Person;
-import com.example.SafetyAlerts.services.SetPerson;
+import com.example.SafetyAlerts.services.PersonInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/person")
 public class RestControllerPersonPPD {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final SetPerson setPerson;
+    private final PersonInfoService setPerson;
 
-    public RestControllerPersonPPD(SetPerson setPerson) {
+    public RestControllerPersonPPD(PersonInfoService setPerson) {
         this.setPerson = setPerson;
     }
 

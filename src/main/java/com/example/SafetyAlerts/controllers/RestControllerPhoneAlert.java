@@ -2,7 +2,7 @@ package com.example.SafetyAlerts.controllers;
 
 
 import com.example.SafetyAlerts.modeles.PhoneAlertUrl;
-import com.example.SafetyAlerts.services.GetPhoneAlert;
+import com.example.SafetyAlerts.services.PhoneAlertService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/phoneAlert")
 public class RestControllerPhoneAlert {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final GetPhoneAlert getPhoneAlert;
+    private final PhoneAlertService phoneAlertService;
 
-    public RestControllerPhoneAlert(GetPhoneAlert getPhoneAlert) {
-        this.getPhoneAlert = getPhoneAlert;
+    public RestControllerPhoneAlert(PhoneAlertService phoneAlertService) {
+        this.phoneAlertService = phoneAlertService;
     }
 
 
@@ -30,7 +30,7 @@ public class RestControllerPhoneAlert {
             throw new Exception("Parameter : Station value, is necessary");
         } else {
             logger.info("Get Phones OK");
-            return getPhoneAlert.getPhoneAlert(station);
+            return phoneAlertService.getPhoneAlert(station);
         }
     }
 }

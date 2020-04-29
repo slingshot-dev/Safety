@@ -2,7 +2,7 @@ package com.example.SafetyAlerts.dao;
 
 import java.util.List;
 
-public interface IGetAll2<T> {
+public interface IGetAll<T> {
 
     List<T> getAll();
 

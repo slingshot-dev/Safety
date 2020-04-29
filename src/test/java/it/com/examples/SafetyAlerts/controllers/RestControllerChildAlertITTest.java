@@ -57,7 +57,4 @@ public class RestControllerChildAlertITTest {
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(bundle.getString("child")));
     }
-
-
-
 }

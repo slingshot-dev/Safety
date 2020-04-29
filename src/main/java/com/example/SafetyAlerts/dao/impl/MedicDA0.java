@@ -1,6 +1,6 @@
 package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
 import com.example.SafetyAlerts.modeles.MedicalRecord;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository("CMedicDAO")
-public class MedicDA0 implements IGetAll2<MedicalRecord> {
+public class MedicDA0 implements IGetAll<MedicalRecord> {
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
     public MedicDA0() {

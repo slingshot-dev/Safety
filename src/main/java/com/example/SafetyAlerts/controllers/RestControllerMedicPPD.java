@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.services.SetMedic;
+import com.example.SafetyAlerts.services.MedicService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/medicalRecord")
 public class RestControllerMedicPPD {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    private final SetMedic setMedic;
+    private final MedicService medicService;
 
-    public RestControllerMedicPPD(SetMedic setMedic) {
-        this.setMedic = setMedic;
+    public RestControllerMedicPPD(MedicService medicService) {
+        this.medicService = medicService;
     }
 
 
@@ -25,7 +25,7 @@ public class RestControllerMedicPPD {
             throw new Exception("Parameters : Firstname, Lastname, Bithdate, Medications & Allergies, are necessary");
         } else {
             logger.info("Add Medicals Records OK");
-            setMedic.setAddMedic(addMedicalRecord);
+            medicService.setAddMedic(addMedicalRecord);
         }
     }
 
@@ -36,7 +36,7 @@ public class RestControllerMedicPPD {
             logger.error("One or more Parameters Firstname, Lastname, Bithdate, Medications & Allergies are missing");
             throw new Exception("Parameters : Firstname, Lastname, Bithdate, Medications & Allergies, are necessary");
         } else {
-            setMedic.setUpdateMedic(putMedicalRecord);
+            medicService.setUpdateMedic(putMedicalRecord);
             logger.info("Update Medicals Records OK");
         }
     }
@@ -48,7 +48,7 @@ public class RestControllerMedicPPD {
             logger.error("One or more Parameters Firstname, Lastname are missing");
             throw new Exception("Parameters : Firstname, Lastname");
         } else {
-            setMedic.setRemoveMedic(removeMedicalRecord);
+            medicService.setRemoveMedic(removeMedicalRecord);
             logger.info("Delete Medicals Records OK");
         }
     }

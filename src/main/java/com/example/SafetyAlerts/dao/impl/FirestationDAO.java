@@ -1,6 +1,6 @@
 package com.example.SafetyAlerts.dao.impl;
 
-import com.example.SafetyAlerts.dao.IGetAll2;
+import com.example.SafetyAlerts.dao.IGetAll;
 import com.example.SafetyAlerts.modeles.Firestation;
 import com.example.SafetyAlerts.modeles.ObjectFromData;
 import com.example.SafetyAlerts.utils.SafetyAlertsMapper;
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository("CFirestationDAO")
-public class FirestationDAO implements IGetAll2<Firestation> {
+public class FirestationDAO implements IGetAll<Firestation> {
 
     private List<Firestation> firestations = new ArrayList<>();
     private final SafetyAlertsMapper safetyAlertsMapper;

@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.modeles.ChildAlertUrl;
-import com.example.SafetyAlerts.services.GetChildAlert;
+import com.example.SafetyAlerts.services.ChildAlertService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,10 @@ public class RestControllerChildAlert {
 
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
 /*    private final GetChildAlert getChildAlert;*/
-private final GetChildAlert getChildAlert;
+private final ChildAlertService childAlertService;
 
-    public RestControllerChildAlert(GetChildAlert getChildAlert) {
-        this.getChildAlert = getChildAlert;
+    public RestControllerChildAlert(ChildAlertService childAlertService) {
+        this.childAlertService = childAlertService;
     }
 
 
@@ -38,7 +38,7 @@ private final GetChildAlert getChildAlert;
             throw new Exception("Parameter : Address value, is necessary");
         } else {
             logger.info("Get Childs from address OK");
-            return getChildAlert.getChildAlert(address);
+            return childAlertService.getChildAlert(address);
         }
     }
 }

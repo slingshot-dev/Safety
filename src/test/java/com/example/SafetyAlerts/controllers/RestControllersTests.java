@@ -117,13 +117,17 @@ public class RestControllersTests {
 
     @Test
     public void GetFirestation() throws Exception {
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(get("/firestation/?stationNumber=1"))
                 .andDo(print())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("7 rue de talhouet", objectFromData.getFirestations().get(0).getAddress());
     }
@@ -131,14 +135,17 @@ public class RestControllersTests {
 
     @Test
     public void PostFirestation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(post("/firestation/post/?address=10 Rue de Paris&station=3"))
                 .andDo(print())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("10 Rue de Paris", objectFromData.getFirestations().get(2).getAddress());
     }
@@ -146,26 +153,32 @@ public class RestControllersTests {
 
     @Test
     public void PutFirestation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(put("/firestation/put/?address=7 rue de talhouet&station=10"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("10", objectFromData.getFirestations().get(0).getStation());
     }
 
     @Test
     public void DeleteFirestation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(delete("/firestation/delete/?address=7 Rue de Talhouet&station=1"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("15 rue de Bordeaux", objectFromData.getFirestations().get(0).getAddress());
         assertEquals(1, objectFromData.getFirestations().size());
@@ -173,40 +186,50 @@ public class RestControllersTests {
 
     @Test
     public void GetPerson() throws Exception {
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(get("/personinfo?firstname=cyrille&lastname=guillet"))
                 .andDo(print())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("cyrille", objectFromData.getPersons().get(0).getFirstName());
     }
 
     @Test
     public void PostPerson() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(post("/person/post/?firstName=fabienne&lastName=guillet&address=7 rue de Talhouet&city=ris-orangis&zip=91130&phone=0123455555&email=fabienne@outlook.fr&birthdate=02/17/1971"))
                 .andDo(print())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("fabienne", objectFromData.getPersons().get(2).getFirstName());
     }
 
     @Test
     public void PutPerson() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(put("/person/put/?firstName=cyrille&lastName=guillet&address=7 rue de Talhouet3&city=ris-orangis3&zip=911303&phone=1233&email=slingshot@outlook.fr3"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("7 rue de Talhouet3", objectFromData.getPersons().get(0).getAddress());
 
@@ -215,13 +238,16 @@ public class RestControllersTests {
 
     @Test
     public void DeletePerson() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(delete("/person/delete/?firstName=cyrille&lastName=guillet"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("15 rue de Bordeaux", objectFromData.getPersons().get(0).getAddress());
         assertEquals(1, objectFromData.getPersons().size());
@@ -229,27 +255,33 @@ public class RestControllersTests {
 
     @Test
     public void PostMedic() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(post("/medicalRecord/post/?firstName=fabienne&lastName=guillet&birthdate=02/17/1971&medications=Doliprane : 4gr&allergies=Asthme"))
                 .andDo(print())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("Doliprane : 4gr", objectFromData.getMedicalrecords().get(2).getMedications().get(0));
     }
 
     @Test
     public void PutMedic() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(put("/medicalRecord/put?firstName=cyrille&lastName=guillet&birthdate=03/28/1973&medications=thradox:700mg&allergies=illisoxian 2Gr"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("thradox:700mg", objectFromData.getMedicalrecords().get(0).getMedications().get(0));
 
@@ -258,13 +290,16 @@ public class RestControllersTests {
 
     @Test
     public void DeleteMedic() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act
         MvcResult mvcResult = this.mockMvc.perform(delete("/medicalRecord/delete/?firstName=cyrille&lastName=guillet"))
                 .andDo(print()).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        // Assert
         assertEquals(200, status);
         assertEquals("david", objectFromData.getMedicalrecords().get(0).getFirstName());
         assertEquals(2, objectFromData.getPersons().size());
@@ -272,22 +307,23 @@ public class RestControllersTests {
 
     @Test
     public void GetPersonFromName() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/personinfo?" + bundle.getString("param5")))
                 .andDo(print())
                 .andExpect(status().isOk())
-/*                .andExpect(content().contentType(MediaType.APPLICATION_JSON))*/
                 .andExpect(content().string(containsString("cyrille")))
                 .andExpect(jsonPath("$.[0].lastName").value("guillet"));
     }
 
     @Test
     public void GetChildFromAddress() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/childAlert?address=" + bundle.getString("param6")))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -298,9 +334,10 @@ public class RestControllersTests {
 
     @Test
     public void GetFirestationFromAddress() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/fire?address=15 rue de Bordeaux"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -311,9 +348,10 @@ public class RestControllersTests {
 
     @Test
     public void ReturnPersonFromStation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/firestation?stationNumber=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -324,9 +362,10 @@ public class RestControllersTests {
 
     @Test
     public void GetAddressFromStation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/flood?station=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -338,9 +377,10 @@ public class RestControllersTests {
 
     @Test
     public void GetEmailFromCity() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/communityEmail?city=Ris-Orangis"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -351,9 +391,10 @@ public class RestControllersTests {
 
     @Test
     public void GetPhoneFromStation() throws Exception {
-
+        // Arrange
         when(safetyAlertsMapper.read()).thenReturn(objectFromData);
 
+        // Act & Assert
         this.mockMvc.perform(get("/phoneAlert?" + bundle.getString("param3")))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -361,6 +402,4 @@ public class RestControllersTests {
                 .andExpect(content().string(containsString("cyrille")))
                 .andExpect(jsonPath("$.[0].phone").value("0123456789"));
     }
-
-
 }

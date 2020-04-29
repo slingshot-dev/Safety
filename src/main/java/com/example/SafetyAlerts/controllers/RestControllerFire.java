@@ -1,7 +1,7 @@
 package com.example.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.modeles.FireUrl;
-import com.example.SafetyAlerts.services.GetFire;
+import com.example.SafetyAlerts.services.FireService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/fire")
 public class RestControllerFire {
     private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-    public final GetFire getFire;
+    public final FireService fireService;
 
-    public RestControllerFire(GetFire getFire) {
-        this.getFire = getFire;
+    public RestControllerFire(FireService fireService) {
+        this.fireService = fireService;
     }
 
 
@@ -29,7 +29,7 @@ public class RestControllerFire {
             throw new Exception("Parameter : Address value, is necessary");
         } else {
             logger.info("Get Address OK");
-            return getFire.getFire(address);
+            return fireService.getFire(address);
         }
     }
 }

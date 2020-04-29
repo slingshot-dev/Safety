@@ -59,7 +59,8 @@ public class LimitsTests {
 
     @Test
     public void BadUrlRequest() throws Exception {
-          this.mockMvc.perform(get("/communityEmail/test"))
+        // act & Assert
+        this.mockMvc.perform(get("/communityEmail/test"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(status().is4xxClientError());
