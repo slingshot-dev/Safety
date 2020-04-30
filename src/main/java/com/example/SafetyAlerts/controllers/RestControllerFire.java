@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/fire")
 public class RestControllerFire {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerFire.class);
     public final FireService fireService;
 
     public RestControllerFire(FireService fireService) {

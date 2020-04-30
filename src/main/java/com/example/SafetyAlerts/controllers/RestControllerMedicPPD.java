@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/medicalRecord")
 public class RestControllerMedicPPD {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerMedicPPD.class);
     private final MedicService medicService;
 
     public RestControllerMedicPPD(MedicService medicService) {

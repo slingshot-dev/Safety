@@ -31,13 +31,13 @@ public class ChildAlertService extends CommonsServices {
      */
 
     public ArrayList<ChildAlertUrl> getChildAlert(String address) {
-        List<Person> result = getPersonAll();
+
         ArrayList<ChildAlertUrl> result3 = new ArrayList<>();
         ArrayList<Child> resultChild = new ArrayList<>();
 
 
         // Liste de personnes a l'adresse demandée
-        List<Person> resultPersonAddress = result.stream().filter(child1 -> (child1.getAddress().contentEquals(address))).collect(Collectors.toList());
+        List<Person> resultPersonAddress = getPersonAll().stream().filter(child1 -> (child1.getAddress().contentEquals(address))).collect(Collectors.toList());
 
         // Recuperation du dossier Medical de chaque personne
         resultPersonAddress.forEach(person -> {

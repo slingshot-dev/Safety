@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/personinfo")
 public class RestControllerPersonsInfo {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerPersonsInfo.class);
     private final PersonInfoService personInfoService;
 
     public RestControllerPersonsInfo(PersonInfoService personInfoService) {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/firestation")
 public class RestControllerFirestationPPD {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerFirestationPPD.class);
     private final FirestationService setFirestation;
 
     public RestControllerFirestationPPD(FirestationService setFirestation) {

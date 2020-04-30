@@ -1,5 +1,9 @@
 package com.example.SafetyAlerts.modeles;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Firestation {
 
     private String address;

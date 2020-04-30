@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 
+@JsonFilter("personFilter")
 @Component
-public class Person {
+public class PersonInfos {
 
     private String firstName;
     private String lastName;
@@ -15,6 +17,11 @@ public class Person {
     private Long zip;
     private String phone;
     private String email;
+    private String birthdate;
+    private String age;
+    private String StationNumber;
+    private List<String> medics;
+    private List<String> allergies;
 
     public String getFirstName() {
         return firstName;
@@ -72,4 +79,44 @@ public class Person {
         this.email = email;
     }
 
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getStationNumber() {
+        return StationNumber;
+    }
+
+    public void setStationNumber(String stationNumber) {
+        StationNumber = stationNumber;
+    }
+
+    public List<String> getMedics() {
+        return medics;
+    }
+
+    public void setMedics(List<String> medics) {
+        this.medics = medics;
+    }
+
+    public List<String> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<String> allergies) {
+        this.allergies = allergies;
+    }
 }
+

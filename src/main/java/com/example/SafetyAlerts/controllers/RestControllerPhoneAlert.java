@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/phoneAlert")
 public class RestControllerPhoneAlert {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerPhoneAlert.class);
     private final PhoneAlertService phoneAlertService;
 
     public RestControllerPhoneAlert(PhoneAlertService phoneAlertService) {

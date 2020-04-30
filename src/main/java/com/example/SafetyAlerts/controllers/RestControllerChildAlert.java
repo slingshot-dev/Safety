@@ -14,9 +14,8 @@ import java.util.ArrayList;
 @RequestMapping("/childAlert")
 public class RestControllerChildAlert {
 
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
-/*    private final GetChildAlert getChildAlert;*/
-private final ChildAlertService childAlertService;
+    private static final Logger logger = LogManager.getLogger(RestControllerChildAlert.class);
+    private final ChildAlertService childAlertService;
 
     public RestControllerChildAlert(ChildAlertService childAlertService) {
         this.childAlertService = childAlertService;
@@ -29,6 +28,7 @@ private final ChildAlertService childAlertService;
      * @return
      * @throws Exception
      */
+
 
     @GetMapping
     public ArrayList<ChildAlertUrl> getChildAlert(String address) throws Exception {

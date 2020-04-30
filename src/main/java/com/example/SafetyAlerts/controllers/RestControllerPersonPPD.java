@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/person")
 public class RestControllerPersonPPD {
-    private static final Logger logger = LogManager.getLogger(RestControllerPersonEmail.class);
+    private static final Logger logger = LogManager.getLogger(RestControllerPersonPPD.class);
     private final PersonInfoService setPerson;
 
     public RestControllerPersonPPD(PersonInfoService setPerson) {

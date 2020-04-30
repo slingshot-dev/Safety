@@ -1,10 +1,8 @@
 package com.example.SafetyAlerts.services;
 
 import com.example.SafetyAlerts.dao.IGetAll;
-import com.example.SafetyAlerts.modeles.ChildAlertUrl;
-import com.example.SafetyAlerts.modeles.Firestation;
-import com.example.SafetyAlerts.modeles.MedicalRecord;
-import com.example.SafetyAlerts.modeles.Person;
+import com.example.SafetyAlerts.modeles.*;
+import com.example.SafetyAlerts.utils.GetAge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,7 @@ public class CommonsServices {
     private final IGetAll<Person> personDAO;
     private final IGetAll<Firestation> firestationDAO;
     private final IGetAll<MedicalRecord> medicDA0;
+    private String age;
 
 
     public CommonsServices(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
@@ -117,4 +116,28 @@ public class CommonsServices {
         personDAO.delete(removePerson);
 
     }
+
+    public PersonInfos getPersonFullInfos(String firstname, String lastname){
+
+        PersonInfos personInfos = new PersonInfos();
+        List<MedicalRecord> filteredListMedic = getMedicAll().stream().filter(medic1 -> medic1.getFirstName().contentEquals(firstname) && medic1.getLastName().contentEquals(lastname)).collect(Collectors.toList());
+        List<Person> filteredListPerson = getPersonAll().stream().filter(person1 -> person1.getFirstName().contentEquals(firstname) && person1.getLastName().contentEquals(lastname)).collect(Collectors.toList());
+
+        personInfos.setFirstName(filteredListPerson.get(0).getFirstName());
+        personInfos.setLastName(filteredListPerson.get(0).getLastName());
+        personInfos.setAddress(filteredListPerson.get(0).getAddress());
+        personInfos.setCity(filteredListPerson.get(0).getCity());
+        personInfos.setEmail(filteredListPerson.get(0).getEmail());
+        personInfos.setPhone(filteredListPerson.get(0).getPhone());
+        personInfos.setMedics(filteredListMedic.get(0).getMedications());
+        personInfos.setAllergies(filteredListMedic.get(0).getAllergies());
+        personInfos.setBirthdate(filteredListMedic.get(0).getBirthdate());
+
+        age = GetAge.getAge(filteredListMedic.get(0).getBirthdate());
+        personInfos.setAge(age);
+
+
+        return personInfos;
+    }
+
 }

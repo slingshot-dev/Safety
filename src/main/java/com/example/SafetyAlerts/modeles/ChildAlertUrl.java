@@ -1,5 +1,7 @@
 package com.example.SafetyAlerts.modeles;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import java.util.List;
 
 public class ChildAlertUrl {
