@@ -19,7 +19,7 @@ public class PersonInfos {
     private String email;
     private String birthdate;
     private String age;
-    private String StationNumber;
+    private String stationNumber;
     private List<String> medics;
     private List<String> allergies;
 
@@ -96,11 +96,11 @@ public class PersonInfos {
     }
 
     public String getStationNumber() {
-        return StationNumber;
+        return stationNumber;
     }
 
     public void setStationNumber(String stationNumber) {
-        StationNumber = stationNumber;
+        this.stationNumber = stationNumber;
     }
 
     public List<String> getMedics() {

@@ -24,9 +24,9 @@ public class PhoneAlertService extends CommonsServices {
      * @return : Retourne la liste PhonealertUrl.
      */
 
-    public List<PhoneAlertUrl> getPhoneAlert(String station) {
+    public List<PersonInfos> getPhoneAlert(String station) {
 
-        ArrayList<PhoneAlertUrl> result2 = new ArrayList<>();
+        ArrayList<PersonInfos> result2 = new ArrayList<>();
 
         getFirestationAll().forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
@@ -35,12 +35,12 @@ public class PhoneAlertService extends CommonsServices {
                 getPersonAll().forEach(person -> {
                     if (person.getAddress().contentEquals(adress)) {
 
-                        PhoneAlertUrl phoneAlertUrl = new PhoneAlertUrl();
-                        phoneAlertUrl.setFirstName(person.getFirstName());
-                        phoneAlertUrl.setLastName(person.getLastName());
-                        phoneAlertUrl.setPhone(person.getPhone());
+                        PersonInfos personInfos = new PersonInfos();
+                        personInfos.setFirstName(person.getFirstName());
+                        personInfos.setLastName(person.getLastName());
+                        personInfos.setPhone(person.getPhone());
 
-                        result2.add(phoneAlertUrl);
+                        result2.add(personInfos);
                     }
                 });
             }

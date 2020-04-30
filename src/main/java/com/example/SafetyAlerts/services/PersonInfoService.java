@@ -29,33 +29,32 @@ public class PersonInfoService extends CommonsServices {
      */
 
 
-    public List<PersonUrl> getPersonFindByName(String firstname, String lastname) {
+    public List<PersonInfos> getPersonFindByName(String firstname, String lastname) {
 
 
-        List<PersonUrl> result2 = new ArrayList<>();
+        List<PersonInfos> result2 = new ArrayList<>();
 
                 getPersonAll().forEach(person -> {
                     if (person.getLastName().contentEquals(lastname) ) {
 
                         String firstname2 = person.getFirstName();
                         String lastname2 = person.getLastName();
-                        PersonUrl personUrl = new PersonUrl();
 
-                        personUrl.setFirstName(person.getFirstName());
-                        personUrl.setLastName(person.getLastName());
-                        personUrl.setEmail(person.getEmail());
+                        PersonInfos personInfos = new PersonInfos();
+                        personInfos.setFirstName(person.getFirstName());
+                        personInfos.setLastName(person.getLastName());
+                        personInfos.setEmail(person.getEmail());
 
                         getMedicAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname2) && person2.getFirstName().contentEquals(firstname2)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
 
-                                personUrl.setAllergies(person2.getAllergies());
-                                personUrl.setMedics(person2.getMedications());
-                                personUrl.setAge(age);
+                                personInfos.setAllergies(person2.getAllergies());
+                                personInfos.setMedics(person2.getMedications());
+                                personInfos.setAge(age);
 
-                                result2.add(personUrl);
-
+                                result2.add(personInfos);
                             }
                         });
                     }

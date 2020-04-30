@@ -38,7 +38,7 @@ public class RestControllerPersonEmail {
             List<PersonInfos> resultPersonInfos = emailInfoService.getEmail(city);
 
             MappingJacksonValue result = new MappingJacksonValue(resultPersonInfos);
-            FilterProvider filter = new SimpleFilterProvider().addFilter("personFilter", SimpleBeanPropertyFilter.serializeAllExcept("address", "city", "zip", "phone", "birthdate", "age", "medics", "allergies", "stationNumber"));
+            FilterProvider filter = new SimpleFilterProvider().addFilter("personFilter", SimpleBeanPropertyFilter.filterOutAllExcept("firstName", "lastName", "email"));
             result.setFilters(filter);
 
             return result;

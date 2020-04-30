@@ -26,10 +26,9 @@ public class FloodService extends CommonsServices {
      * @return : Retourne la Liste FloodUrl
      */
 
-    public List<FloodUrl> getFlood(String station) {
+    public List<PersonInfos> getFlood(String station) {
 
-        List<FloodUrl> result2 = new ArrayList<>();
-
+        List<PersonInfos> result2 = new ArrayList<>();
 
         getFirestationAll().forEach(firestation -> {
             if (firestation.getStation().contentEquals(station)) {
@@ -41,23 +40,24 @@ public class FloodService extends CommonsServices {
                         String firstname = person.getFirstName();
                         String lastname = person.getLastName();
 
-                        FloodUrl floodUrl = new FloodUrl();
-                        floodUrl.setFirstName(person.getFirstName());
-                        floodUrl.setLastName(person.getLastName());
-                        floodUrl.setAddress(person.getAddress());
-                        floodUrl.setPhone(person.getPhone());
-                        floodUrl.setFirestationNumber(numStation);
+                        PersonInfos personInfos = new PersonInfos();
+
+                        personInfos.setFirstName(person.getFirstName());
+                        personInfos.setLastName(person.getLastName());
+                        personInfos.setAddress(person.getAddress());
+                        personInfos.setPhone(person.getPhone());
+                        personInfos.setStationNumber(numStation);
 
                         getMedicAll().forEach(person2 -> {
                             if (person2.getLastName().contentEquals(lastname) && person2.getFirstName().contentEquals(firstname)) {
                                 String birthDate = person2.getBirthdate();
                                 String age = GetAge.getAge(birthDate);
 
-                                floodUrl.setAge(age);
-                                floodUrl.setMedics(person2.getMedications());
-                                floodUrl.setAllergies(person2.getAllergies());
+                                personInfos.setAge(age);
+                                personInfos.setMedics(person2.getMedications());
+                                personInfos.setAllergies(person2.getAllergies());
 
-                                result2.add(floodUrl);
+                                result2.add(personInfos);
                             }
                         });
                     }

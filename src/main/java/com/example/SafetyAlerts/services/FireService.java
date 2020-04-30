@@ -30,9 +30,9 @@ public class FireService extends CommonsServices {
      * @return : Retourne la Liste FireUrl
      */
 
-    public List<FireUrl> getFire(String address) {
+    public List<PersonInfos> getFire(String address) {
 
-        List<FireUrl> result2 = new ArrayList<>();
+        List<PersonInfos> result2 = new ArrayList<>();
 
         // Recuperation du numero de Firestation Correspondante a l'Adresse
         StationNumber = getFireAdress(address);
@@ -42,22 +42,22 @@ public class FireService extends CommonsServices {
                 String firstname = person.getFirstName();
                 String lastname = person.getLastName();
 
-                FireUrl fireUrl = new FireUrl();
-                fireUrl.setFirstName(person.getFirstName());
-                fireUrl.setLastName(person.getLastName());
-                fireUrl.setPhone(person.getPhone());
+                PersonInfos personInfos = new PersonInfos();
+                personInfos.setFirstName(person.getFirstName());
+                personInfos.setLastName(person.getLastName());
+                personInfos.setPhone(person.getPhone());
 
             // Recuperation des Dossiers Medicaux des Personnes.
             resultPersonsMedic(firstname, lastname).forEach(person2 -> {
                         String birthDate = person2.getBirthdate();
                         String age = GetAge.getAge(birthDate);
 
-                        fireUrl.setAge(age);
-                        fireUrl.setAllergies(person2.getAllergies());
-                        fireUrl.setMedics(person2.getMedications());
-                        fireUrl.setFirestationNumber(StationNumber);
+                        personInfos.setAge(age);
+                        personInfos.setAllergies(person2.getAllergies());
+                        personInfos.setMedics(person2.getMedications());
+                        personInfos.setStationNumber(StationNumber);
 
-                        result2.add(fireUrl);
+                        result2.add(personInfos);
                 });
         });
 
