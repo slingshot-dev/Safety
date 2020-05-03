@@ -1,4 +1,4 @@
-# Safety
+# Safety Alert
 Projet 5 : SafetyAlerts
 SafetyNet Alerts. Son objectif essentiel est d'envoyer des informations aux services d'urgence. 
 
