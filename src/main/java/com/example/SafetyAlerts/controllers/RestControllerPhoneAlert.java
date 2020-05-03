@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/** Controleur de l'URL PhoneAlert :
+ * Cette url retourne une liste des numéros de téléphone des résidents desservis par la caserne de
+ * pompiers. Nous l'utilisons pour envoyer des messages texte d'urgence à des foyers spécifiques.
+ */
+
 @RestController
 @RequestMapping("/phoneAlert")
 public class RestControllerPhoneAlert {
@@ -25,6 +30,12 @@ public class RestControllerPhoneAlert {
         this.phoneAlertService = phoneAlertService;
     }
 
+    /**
+     *
+     * @param station : Numero de Firestation
+     * @return : Retourn les informations du Service PhoneAlertService
+     * @throws Exception : Exception si parametres non renseignés
+     */
 
     @GetMapping
     public Object getPhoneAlert(String station) throws Exception {
@@ -35,7 +46,6 @@ public class RestControllerPhoneAlert {
         } else {
             logger.info("Get Phones OK");
             List<PersonInfos> resultPersonInfos = phoneAlertService.getPhoneAlert(station);
-
 
             MappingJacksonValue result = new MappingJacksonValue(resultPersonInfos);
             FilterProvider filter = new SimpleFilterProvider().addFilter("personFilter", SimpleBeanPropertyFilter.filterOutAllExcept("firstName", "lastName", "phone"));

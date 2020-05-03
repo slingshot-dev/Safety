@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
+/**
+ * Controleur de la liste ChildAlert.
+ * Cette url retourne une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
+ * La liste comprend le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
+ * membres du foyer. S'il n'y a pas d'enfant, cette url renvoie une chaîne vide.
+ */
+
 @RestController
 @RequestMapping("/childAlert")
 public class RestControllerChildAlert {
@@ -24,9 +31,9 @@ public class RestControllerChildAlert {
 
     /**
      *
-     * @param address
-     * @return
-     * @throws Exception
+     * @param address : Adresse de la ou les personnes a remonter
+     * @return : Retourne les informations au client, issues du service childAlertService
+     * @throws Exception : Exception si parametres non renseignés
      */
 
 

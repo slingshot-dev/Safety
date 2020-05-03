@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/** Controleur de l'URL flood :
+ * Cette url retourne une liste de tous les foyers desservis par la caserne. Cette liste regroupe les
+ * personnes par adresse. Elle inclue le nom, le numéro de téléphone et l'âge des habitants, et
+ * fais figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
+ */
+
 @RestController
 @RequestMapping("/flood")
 public class RestControllerFlood {
@@ -25,6 +31,12 @@ public class RestControllerFlood {
         this.floodService = floodService;
     }
 
+    /**
+     *
+     * @param station : Numero de Firestaiton
+     * @return : Retourne les informations du Service FloodService
+     * @throws Exception : Exception si parametres non renseignés
+     */
 
     @GetMapping
     public Object getFlood(String station) throws Exception {

@@ -25,7 +25,6 @@ public class FireService extends CommonsServices {
 
 
     /**
-     *
      * @param address : Parametre adresse d'une Firestation
      * @return : Retourne la Liste FireUrl
      */

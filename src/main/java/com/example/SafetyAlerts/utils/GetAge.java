@@ -7,8 +7,8 @@ import java.util.Locale;
 
 public class GetAge {
 
-    /** Convertie une date en Age
-     *
+    /**
+     * Convertie une date en Age
      * @param birthDate : Date de naissance de la personne
      * @return : Age de la Personne.
      */

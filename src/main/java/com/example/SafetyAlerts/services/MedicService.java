@@ -74,8 +74,8 @@ public class MedicService extends CommonsServices {
         });
     }
 
-    /** Methode de suppression d'un dossier Medical a la liste MedicalRecords
-     *
+    /**
+     * Methode de suppression d'un dossier Medical a la liste MedicalRecords
      * @param removeMedic : Parametres issues du Controller, de suppression d'un dossier Medical d'une personne.
      */
 

@@ -11,7 +11,6 @@ import java.io.IOException;
 public class SafetyAlertsMapper {
 
     /**
-     *
      * @return : Renvoie l'Objet JSON complet comprenant les 3 objets Person, firestation, MedicalRecords
      */
 
@@ -32,7 +31,6 @@ public class SafetyAlertsMapper {
 
 
     /**
-     *
      * @param objectFromData : Objet complet modifié par le programme pour ecriture vers le fichier JSON
      */
 

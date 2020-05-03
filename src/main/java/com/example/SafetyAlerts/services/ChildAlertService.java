@@ -20,12 +20,12 @@ import java.util.stream.Collectors;
 public class ChildAlertService extends CommonsServices {
 
     private String Age;
+
     public ChildAlertService(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
         super(personDAO, firestationDAO, medicDA0);
     }
 
     /**
-     *
      * @param address : Adress de Personnes
      * @return : Retourne La liste ChildAlertUrl.
      */

@@ -27,6 +27,12 @@ public class RestControllerPersonEmail {
         this.emailInfoService = emailInfoService;
     }
 
+    /**
+     *
+     * @param city : Parametre du nom de Ville
+     * @return : Retourne les informations du Service EmailInfoService
+     * @throws Exception : Exception si parametres non renseignés
+     */
 
     @GetMapping
     public Object getEmail(@RequestParam("city") String city) throws Exception {

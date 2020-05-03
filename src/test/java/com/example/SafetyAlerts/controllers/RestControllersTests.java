@@ -343,7 +343,7 @@ public class RestControllersTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("david")))
-                .andExpect(jsonPath("$.[0].firestationNumber").value("2"));
+                .andExpect(jsonPath("$.[0].stationNumber").value("2"));
     }
 
     @Test
@@ -371,7 +371,7 @@ public class RestControllersTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("cyrille")))
-                .andExpect(jsonPath("$.[0].firestationNumber").value("1"))
+                .andExpect(jsonPath("$.[0].stationNumber").value("1"))
                 .andExpect(jsonPath("$.[0].lastName").value("guillet"));
     }
 

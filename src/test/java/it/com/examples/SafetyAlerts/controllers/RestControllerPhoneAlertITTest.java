@@ -1,6 +1,7 @@
 package it.com.examples.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.SafetyAlertsApplication;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class RestControllerPhoneAlertITTest {
 
     @BeforeEach
     public void copy() throws IOException {
+        Path sourcepath = Paths.get("src/main/resources/data_orig.json");
+        Path destinationepath = Paths.get("src/main/resources/data.json");
+        Files.copy(sourcepath, destinationepath, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    @AfterAll
+    public static void copyfinal() throws IOException {
         Path sourcepath = Paths.get("src/main/resources/data_orig.json");
         Path destinationepath = Paths.get("src/main/resources/data.json");
         Files.copy(sourcepath, destinationepath, StandardCopyOption.REPLACE_EXISTING);

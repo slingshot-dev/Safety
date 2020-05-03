@@ -6,6 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controleur de modification de la liste de personne :
+ */
 
 @RestController
 @RequestMapping("/person")

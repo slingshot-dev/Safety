@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/** Controleur de l'URL Personinfos :
+ * Cette url retourne le nom, l'adresse, l'âge, l'adresse mail et les antécédents médicaux (médicaments,
+ * posologie, allergies) de chaque habitant. Si plusieurs personnes portent le même nom.
+ */
 
 @RestController
 @RequestMapping("/personinfo")
@@ -24,6 +28,13 @@ public class RestControllerPersonsInfo {
         this.personInfoService = personInfoService;
     }
 
+    /**
+     *
+     * @param firstname : Prenom de la personne a traiter
+     * @param lastname : Nom de la personne a traiter
+     * @return : Retourn les informations du Service PersonInfoService
+     * @throws Exception : Exception si parametres non renseignés
+     */
 
     @GetMapping
     public Object getPerson(String firstname, String lastname) throws Exception {

@@ -17,7 +17,6 @@ public class EmailInfoService extends CommonsServices {
 
 
     /**
-     *
      * @param city ; Parametre City de la personne
      * @return : Retour la liste des personnes avec leur Email.
      */

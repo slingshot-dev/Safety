@@ -1,6 +1,7 @@
 package it.com.examples.SafetyAlerts.controllers;
 
 import com.example.SafetyAlerts.SafetyAlertsApplication;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class RestControllerFloodITTest {
         Files.copy(sourcepath, destinationepath, StandardCopyOption.REPLACE_EXISTING);
     }
 
+    @AfterAll
+    public static void copyfinal() throws IOException {
+        Path sourcepath = Paths.get("src/main/resources/data_orig.json");
+        Path destinationepath = Paths.get("src/main/resources/data.json");
+        Files.copy(sourcepath, destinationepath, StandardCopyOption.REPLACE_EXISTING);
+    }
+
     @Test
     public void ReturnFoyerFromStation() throws Exception {
         this.mockMvc.perform(get("/flood?station=4"))
@@ -44,7 +52,7 @@ public class RestControllerFloodITTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("Lily")))
-                .andExpect(jsonPath("$.[0].firestationNumber").value("4"))
+                .andExpect(jsonPath("$.[0].stationNumber").value("4"))
                 .andExpect(jsonPath("$.[0].lastName").value("Cooper"));
     }
 

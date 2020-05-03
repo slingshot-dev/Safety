@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 	 SafetyAlerts : Application d'envoie d'informations aux services d'urgence.
- * 	 @author : C. Guillet
- * 	 @version : 1.0 - Avril 2020
+ * 	 @author C. Guillet
+ * 	 @version 1.0 - Avril 2020
  */
 
 

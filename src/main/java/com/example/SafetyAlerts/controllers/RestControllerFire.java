@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controleur de l'URL Firestation.
+ * Cette url retourne la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne
+ * de pompiers la desservant. La liste inclue le nom, le numéro de téléphone, l'âge et les antécédents
+ * médicaux (médicaments, posologie et allergies) de chaque personne.
+ */
+
 @RestController
 @RequestMapping("/fire")
 public class RestControllerFire {
@@ -24,6 +31,12 @@ public class RestControllerFire {
         this.fireService = fireService;
     }
 
+    /**
+     *
+     * @param address : Parametre adresse d'une Firestation
+     * @return : Retourne les information du service FireService
+     * @throws Exception : Exception si parametres non renseignés
+     */
 
     @GetMapping
     public Object getFire(String address) throws Exception {

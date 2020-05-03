@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de Services communs a l'ensemble des Classes Service spécialisées.
+ */
+
 public class CommonsServices {
 
     private final IGetAll<Person> personDAO;
     private final IGetAll<Firestation> firestationDAO;
     private final IGetAll<MedicalRecord> medicDA0;
-    private String age;
 
 
     public CommonsServices(IGetAll<Person> personDAO, IGetAll<Firestation> firestationDAO, IGetAll<MedicalRecord> medicDA0) {
@@ -133,9 +136,8 @@ public class CommonsServices {
         personInfos.setAllergies(filteredListMedic.get(0).getAllergies());
         personInfos.setBirthdate(filteredListMedic.get(0).getBirthdate());
 
-        age = GetAge.getAge(filteredListMedic.get(0).getBirthdate());
+        String age = GetAge.getAge(filteredListMedic.get(0).getBirthdate());
         personInfos.setAge(age);
-
 
         return personInfos;
     }
