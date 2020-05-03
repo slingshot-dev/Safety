@@ -32,6 +32,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.h
 
 
 Running App
+
 java -jar safetyalert.jar
 
 Testing
