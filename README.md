@@ -41,6 +41,12 @@ To run the tests from maven, go to the folder that contains the pom.xml file and
 
 mvn test
 
+
+To generate Surefire Report
+
+mvn surefire-report:report
+
+
 To generate Reports (ex Jacoco)
 
 mvn site
