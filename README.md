@@ -40,3 +40,7 @@ Testing
 To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
 
 mvn test
+
+To generate Reports (ex Jacoco)
+
+mvn site
